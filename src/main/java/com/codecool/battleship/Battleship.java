@@ -15,10 +15,5 @@ public class Battleship {
                 game.play();
             }
         }
-        int boardSize = 5;
-        Board board = new Board();
-        board.setOcean(boardSize);
-        System.out.println("Ocean: " + Arrays.deepToString(board.getOcean()));
-        board.boardDisplay();
     }
 }

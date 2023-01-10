@@ -32,4 +32,8 @@ public class Display {
     public static void displayIncorrectName() {
         System.out.println("Doesn't look like a name! Type your name here: ");
     }
+
+    public static void askForBoardSize() {
+        System.out.println("Choose the board size: ");
+    }
 }

@@ -82,4 +82,23 @@ public class Input {
         }
         return coordinates;
     }
+
+    public static int askForBoardSize() {
+        int boardSize;
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            Display.askForBoardSize();
+            boardSize = scanner.nextInt();
+            try {
+                if (boardSize >= 1 && boardSize <= 20 && boardSize % 2 == 0) {
+                    break;
+                } else {
+                    Display.displayInvalidChoiceMessage();
+                }
+            } catch (InputMismatchException ignored) {
+
+            }
+        }
+    return boardSize;
+    }
 }
