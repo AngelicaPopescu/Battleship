@@ -6,7 +6,7 @@ public class GenerateRandom {
     public static int randomCoordinates(){
         return (int) Math.floor(Math.random()*(1));
 //        return (int) Math.floor(Math.random()*();
-        return 0;
+//        return 0;
     }
 
     private static final Random PRNG = new Random();

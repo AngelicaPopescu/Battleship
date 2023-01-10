@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Ship {
 
-    private List<Square>squareList;
+    private List<Square> squareList;
     private Ship shipType;
 
 
@@ -41,7 +41,7 @@ public class Ship {
 
         if(squareList != null){
             for (Square s: squareList){
-                if(s.getSquareStatus == SquareStatus.SHIP){
+                if(s.getSquareStatus() == SquareStatus.SHIP){
                     return false;
                 }
             }

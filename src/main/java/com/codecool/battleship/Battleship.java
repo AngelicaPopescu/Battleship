@@ -13,11 +13,6 @@ public class Battleship {
         System.out.println("Ocean: "+ Arrays.deepToString(board.getOcean()));
         board.boardDisplay();
 
-
-
-
-
-    public static void main(String[] args) {
         while (true) {
             Display.displayWelcomeMessage();
             Display.displayGameModeOptions();
