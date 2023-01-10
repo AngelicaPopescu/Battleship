@@ -26,28 +26,28 @@ public class Ship {
         this.shipType = shipType;
     }
 
-    public boolean isShipPosition(Square square){
-        if(squareList != null){
-            for (Square s: squareList){
-                if (s.getY() == square.getY() && s.getX() == square.getX()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+//    public boolean isShipPosition(Square square){
+//        if(squareList != null){
+//            for (Square s: squareList){
+//                if (s.getY() == square.getY() && s.getX() == square.getX()) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
-    public boolean isSunk(){
-
-        if(squareList != null){
-            for (Square s: squareList){
-                if(s.getSquareStatus == SquareStatus.SHIP){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+//    public boolean isSunk(){
+//
+//        if(squareList != null){
+//            for (Square s: squareList){
+//                if(s.getSquareStatus == SquareStatus.SHIP){
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
 
 }

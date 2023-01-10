@@ -28,4 +28,8 @@ public class Display {
     public static void displayPlayerTurn(String name) {
         System.out.println(name + "'s turn");
     }
+
+    public static void displayIncorrectName() {
+        System.out.println("Doesn't look like a name! Type your name here: ");
+    }
 }
