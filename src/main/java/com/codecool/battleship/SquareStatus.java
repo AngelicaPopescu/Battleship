@@ -9,7 +9,15 @@ public enum SquareStatus {
         //Each SquareStatus has a unicode character that can be used for printing it out.
         // This unicode character is returned by a SquareStatus.GetCharacter() method.
         public char GetCharacter(){
-            switch (this)
+            if (this == SquareStatus.EMPTY){
+                    return 'E';
+            } else if (this == SquareStatus.HIT){
+                    return 'H';
+            } else if (this == SquareStatus.SHIP) {
+                    return 'S';
+            }  else {
+                    return 'M';
+            }
         }
 
 
