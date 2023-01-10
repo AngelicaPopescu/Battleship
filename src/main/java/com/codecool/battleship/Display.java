@@ -20,4 +20,8 @@ public class Display {
     public static void askForPlayerName() {
         System.out.println("Player name: ");
     }
+
+    public static void askForShootCoordinates() {
+        System.out.println("Shoot to: ");
+    }
 }

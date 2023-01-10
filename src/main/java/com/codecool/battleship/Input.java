@@ -1,6 +1,7 @@
 package com.codecool.battleship;
 
 import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Input {
@@ -38,5 +39,38 @@ public class Input {
         Scanner input = new Scanner(System.in);
         Display.askForPlayerName();
         return input.nextLine();
+    }
+
+    public static int [] getValidCoordinates(int boardSize) {
+        int [] coordinates = new int[2];
+        int row;
+        int col;
+        String x;
+        int y;
+        while (true) {
+            Scanner playerCoordinates = new Scanner(System.in);
+            Display.askForShootCoordinates();
+            String inputs = playerCoordinates.nextLine();
+            if (Objects.equals(inputs, "quit")) {
+                System.exit(0);
+            }
+            try {
+                x = inputs.substring(0, 1).toUpperCase();
+                col = x.charAt(0) - 65;
+                y = Integer.parseInt(inputs.substring(1));
+                row = y - 1;
+                if (row >= 0 && boardSize - 1 > row && col >= 0 && boardSize -1 > col) {
+                    coordinates[0] = col;
+                    coordinates[1] = row;
+                    break;
+                } else {
+                    Display.displayInvalidChoiceMessage();
+                }
+
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                Display.displayInvalidChoiceMessage();
+            }
+        }
+        return coordinates;
     }
 }

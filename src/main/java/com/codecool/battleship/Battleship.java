@@ -11,8 +11,7 @@ public class Battleship {
                 System.exit(0);
             } else if (gameMode == 1) {
                 Game game = new Game();
-                System.out.println(game.player1.getPlayerName());
-                System.out.println(game.player2.getPlayerName());
+                game.play();
             }
         }
     }
