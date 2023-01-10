@@ -8,7 +8,7 @@ public class BoardFactory {
     //The BoardFactory class has a @randomPlacement() method that handles random ship placement on board
     public ShipPlacement randomPlacement(ShipType ship){
         ShipPlacement shipPlacement = null;
-        return shipPlacement;
+        return null;
     }
 
 
