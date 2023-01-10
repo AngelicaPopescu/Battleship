@@ -1,21 +1,23 @@
 package com.codecool.battleship;
 
+import com.codecool.battleship.placement.ShipPlacement;
+
 import java.util.Arrays;
 
 public class Board {
 
 
     //The Board class has a Square[][] ocean field. This contains the squares that the board consists of.
-    private Square[][] ocean;
+    protected Square[][] ocean;
 
     int oceanSize;
 
 //    public void setOcean(Square[][] ocean) {
     public void setOcean(int oceanSize) {
         this.ocean = new Square[oceanSize][oceanSize];
-        for(int x=0; x<oceanSize; x++){
-            for (int y=0; y<oceanSize; y++) {
-                this.ocean[x][y]= new Square(x,y,SquareStatus.EMPTY);
+        for(int row=0; row<oceanSize; row++){
+            for (int col=0; col<oceanSize; col++) {
+                this.ocean[row][col]= new Square(row,col,SquareStatus.EMPTY);
             }
         }
         this.oceanSize = oceanSize;
@@ -27,7 +29,7 @@ public class Board {
 
 
     //The Board class has an isPlacementOk() method that verifies if placement of ship is possible
-    public boolean isPlacementOK(){
+    public boolean isPlacementOK(ShipType shipType, ShipPlacement shipPlacement){
         return true;
     }
 
