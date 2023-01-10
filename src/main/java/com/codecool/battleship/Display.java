@@ -24,4 +24,8 @@ public class Display {
     public static void askForShootCoordinates() {
         System.out.println("Shoot to: ");
     }
+
+    public static void displayPlayerTurn(String name) {
+        System.out.println(name + "'s turn");
+    }
 }

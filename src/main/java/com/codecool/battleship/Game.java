@@ -4,19 +4,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Game {
+    //create player 1
+    private final Board boardPlayer1 = new Board();
+    //    List<Ship> shipsPlayer1 = (List<Ship>) new Ship();
+    private final Player player1 = new Player(Input.getPlayerName(), boardPlayer1);
+
+    //create player 2
+    private final Board boardPlayer2 = new Board();
+    //    List<Ship> shipsPlayer2 = (List<Ship>) new Ship();
+    private final Player player2 = new Player(Input.getPlayerName(), boardPlayer2);
 
     public void play() {
-        //create player 1
-        Board boardPlayer1 = new Board();
-//    List<Ship> shipsPlayer1 = (List<Ship>) new Ship();
-        Player player1 = new Player(Input.getPlayerName(), boardPlayer1);
-        System.out.println(player1.getPlayerName());
-        //create player 2
-        Board boardPlayer2 = new Board();
-//    List<Ship> shipsPlayer2 = (List<Ship>) new Ship();
-        Player player2 = new Player(Input.getPlayerName(), boardPlayer2);
-        System.out.println(player2.getPlayerName());
-        int[] coordinates = Input.getValidCoordinates(10);
-        System.out.println(Arrays.toString(coordinates));
+        Player player = player1;
+        do {
+            Display.displayPlayerTurn(player.getPlayerName());
+            int[] coordinates = Input.getValidCoordinates(10);
+            System.out.println(Arrays.toString(coordinates));
+            player = (player == player1)? player2 :  player1;
+        } while (!player.isAlive());
     }
 }

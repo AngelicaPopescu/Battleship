@@ -21,4 +21,7 @@ public class Player {
         return this.playerBoard;
     }
 
+    public boolean isAlive() {
+        return false;
+    }
 }
