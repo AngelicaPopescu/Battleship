@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Input {
 
-    public static int getGameMode() {
+    public int getGameMode() {
         int[] validAnswers = {1, 2, 3};
         int gameMode;
         while (true) {
@@ -26,7 +26,7 @@ public class Input {
         return gameMode;
     }
 
-    private static boolean checkForValidAnswer(int input, int [] validAnswers){
+    private boolean checkForValidAnswer(int input, int [] validAnswers){
         for(int elem: validAnswers) {
            if (elem == input){
                return true;
@@ -35,7 +35,7 @@ public class Input {
         return false;
     }
 
-    public static String getPlayerName() {
+    public String getPlayerName() {
         String name;
         while(true) {
             Scanner input = new Scanner(System.in);
@@ -53,7 +53,7 @@ public class Input {
         return name;
     }
 
-    public static int [] getValidCoordinates(int boardSize) {
+    public int [] getValidCoordinates(int boardSize) {
         int [] coordinates = new int[2];
         int row;
         int col;
@@ -83,7 +83,7 @@ public class Input {
         return coordinates;
     }
 
-    public static int askForBoardSize() {
+    public int askForBoardSize() {
         int boardSize;
         while (true) {
             Scanner scanner = new Scanner(System.in);

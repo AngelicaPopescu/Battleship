@@ -3,11 +3,12 @@ package com.codecool.battleship;
 import java.util.Arrays;
 
 public class Display{
-    public static void displayWelcomeMessage (){
+
+    public void displayWelcomeMessage (){
         System.out.println("Battleship");
     }
 
-    public static void displayGameModeOptions (){
+    public void displayGameModeOptions (){
         System.out.println("1. New game\n2. High scores\n3. Exit");
     }
 
