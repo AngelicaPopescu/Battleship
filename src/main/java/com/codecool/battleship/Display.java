@@ -2,7 +2,7 @@ package com.codecool.battleship;
 
 import java.util.Arrays;
 
-public class Display {
+public class Display{
     public static void displayWelcomeMessage (){
         System.out.println("Battleship");
     }
@@ -27,7 +27,7 @@ public class Display {
         System.out.println("Shoot to: ");
     }
 
-    public static void displayPlayerTurn(String name) {
+    public void displayPlayerTurn(String name) {
         System.out.println(name + "'s turn");
     }
 
