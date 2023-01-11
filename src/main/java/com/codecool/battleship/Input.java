@@ -1,5 +1,7 @@
 package com.codecool.battleship;
 
+import com.codecool.battleship.placement.Direction;
+
 import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
@@ -91,53 +93,75 @@ public class Input {
         return coordinates;
     }
 
-    public char getDirection() {
-        int[] validAnswers = new int[]{110, 115, 101, 119};
-        char direction;
-        int value;
-        while (true) {
+
+    public Direction getDirection() {
+        Direction result;
+//        while (true) {
             scanner = new Scanner(System.in);
             display.getBoatDirection();
             String inputs = scanner.nextLine();
+//            try {
+//                for (Direction c : Direction.values()) {
+//                    if (c.name().equals(inputs)) {
+//                        result = c;
+//                        break;
+//                    }
+////                    } else {
+////                        display.displayInvalidChoiceMessage();
+////                    }
+//                }
+//            } catch (InputMismatchException ignored){
+//            }
+            result = switch (Direction.valueOf(inputs.trim())) {
+                case NORTH -> Direction.NORTH;
+                case SOUTH -> Direction.SOUTH;
+                case EAST -> Direction.EAST;
+                case WEST -> Direction.WEST;
+            };
+//        }
+        return result;
+    }
+
+    private boolean checkCoordinatesForAction(String action) {
+        return Objects.equals(action, "place");
+    }
+
+    public int askForBoardSize() {
+        int boardSize;
+        while (true) {
+            scanner = new Scanner(System.in);
+            display.askForBoardSize();
+            boardSize = scanner.nextInt();
             try {
-                if (!Objects.equals(inputs, "") && inputs.length() == 1) {
-                    value = inputs.toLowerCase().charAt(0);
-                    if (checkForValidAnswer(value, validAnswers)) {
-                        direction = inputs.charAt(0);
-                        break;
-                    } else {
-                        display.displayInvalidChoiceMessage();
-                    }
+                if (boardSize >= 10 && boardSize <= 20) {
+                    break;
                 } else {
                     display.displayInvalidChoiceMessage();
                 }
-                } catch(NumberFormatException | ArrayIndexOutOfBoundsException e){
+            } catch (InputMismatchException ignored) {
+
+            }
+        }
+        return boardSize;
+    }
+
+    public int askForPlacementMethod() {
+        int[] validAnswers = new int[]{1, 2};
+        int placementMethod;
+        while (true) {
+            scanner = new Scanner(System.in);
+            display.askForPlacement();
+            placementMethod = scanner.nextInt();
+            try {
+                if (checkForValidAnswer(placementMethod, validAnswers)) {
+                    break;
+                } else {
                     display.displayInvalidChoiceMessage();
                 }
+            } catch (InputMismatchException ignored) {
+
             }
-            return direction;
         }
-
-        private boolean checkCoordinatesForAction (String action){
-            return Objects.equals(action, "place");
-        }
-
-        public int askForBoardSize () {
-            int boardSize;
-            while (true) {
-                scanner = new Scanner(System.in);
-                display.askForBoardSize();
-                boardSize = scanner.nextInt();
-                try {
-                    if (boardSize >= 10 && boardSize <= 20) {
-                        break;
-                    } else {
-                        display.displayInvalidChoiceMessage();
-                    }
-                } catch (InputMismatchException ignored) {
-
-                }
-            }
-            return boardSize;
-        }
+        return placementMethod;
     }
+}
