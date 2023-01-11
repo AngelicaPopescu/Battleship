@@ -17,9 +17,13 @@ public class Game {
     public void play() {
         Player player = player1;
         do {
+            int boardSize = Input.askForBoardSize();
+            boardPlayer1.setOcean(boardSize);
+            boardPlayer2.setOcean(boardSize);
+            boardPlayer1.boardDisplay();
             Display.displayPlayerTurn(player.getPlayerName());
-            int[] coordinates = Input.getValidCoordinates(10);
-            System.out.println(Arrays.toString(coordinates));
+            int[] coordinates = Input.getValidCoordinates(boardSize);
+            System.out.println("Ocean: " + Arrays.deepToString(boardPlayer1.getOcean()));
             player = (player == player1)? player2 :  player1;
         } while (!player.isAlive());
     }
