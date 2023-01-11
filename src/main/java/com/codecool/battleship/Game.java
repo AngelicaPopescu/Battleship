@@ -1,30 +1,33 @@
 package com.codecool.battleship;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class Game {
-    //create player 1
-    private final BoardFactory boardPlayer1 = new BoardFactory();
-    //    List<Ship> shipsPlayer1 = (List<Ship>) new Ship();
-    private final Player player1 = new Player(Input.getPlayerName(), boardPlayer1);
+    public Display display = new Display();
+    public Input input = new Input();
 
-    //create player 2
-    private final BoardFactory boardPlayer2 = new BoardFactory();
-    //    List<Ship> shipsPlayer2 = (List<Ship>) new Ship();
-    private final Player player2 = new Player(Input.getPlayerName(), boardPlayer2);
 
     public void play() {
+        //    List<Ship> shipsPlayer1 = (List<Ship>) new Ship();
+        BoardFactory boardPlayer1 = new BoardFactory();
+        String namePlayer1 = input.getNameForPlayer();
+        Player player1 = new Player(namePlayer1, boardPlayer1);
+        System.out.println(player1.getPlayerName());
+        //    List<Ship> shipsPlayer2 = (List<Ship>) new Ship();
+        BoardFactory boardPlayer2 = new BoardFactory();
+        Player player2 = new Player(input.getNameForPlayer(), boardPlayer2);
         Player player = player1;
         do {
-            int boardSize = Input.askForBoardSize();
+            int boardSize = input.askForBoardSize();
             boardPlayer1.setOcean(boardSize);
             boardPlayer2.setOcean(boardSize);
-            boardPlayer1.boardDisplay();
-            Display.displayPlayerTurn(player.getPlayerName());
-            int[] coordinates = Input.getValidCoordinates(boardSize);
-            System.out.println("Ocean: " + Arrays.deepToString(boardPlayer1.getOcean()));
-            player = (player == player1)? player2 :  player1;
+            display.displayPlayerTurn(player.getPlayerName());
+            display.displayBoard(boardSize, (player == player1)?boardPlayer1:boardPlayer2); // switch board for player
+            int[] coordinates = input.getValidCoordinates(boardSize, "place");
+            char direction = input.getDirection();
+
+
+            player = (player == player1)? player2 : player1; // switch player
         } while (!player.isAlive());
     }
 }

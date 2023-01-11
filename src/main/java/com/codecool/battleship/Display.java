@@ -1,39 +1,56 @@
 package com.codecool.battleship;
 
-public class Display {
-    public static void displayWelcomeMessage (){
+import java.util.Arrays;
+
+public class Display{
+
+
+    public void displayWelcomeMessage (){
         System.out.println("Battleship");
     }
 
-    public static void displayGameModeOptions (){
+    public void displayGameModeOptions (){
         System.out.println("1. New game\n2. High scores\n3. Exit");
     }
 
-    public static void displayInvalidChoiceMessage() {
+    public void displayInvalidChoiceMessage() {
         System.out.println("Invalid choice!\n" );
     }
 
-    public static void askForInput() {
+    public void askForInput() {
         System.out.println("Enter your choice: ");
     }
 
-    public static void askForPlayerName() {
+    public void askForPlayerName() {
         System.out.println("Player name: ");
     }
 
-    public static void askForShootCoordinates() {
+    public void askForPlaceCoordinates() {
+        System.out.println("Place to: ");
+    }
+
+    public void getBoatDirection() {
+        System.out.println("Choose direction (N, S, E, V): ");
+    }
+
+    public void askForShootCoordinates() {
         System.out.println("Shoot to: ");
     }
 
-    public static void displayPlayerTurn(String name) {
+    public void displayPlayerTurn(String name) {
         System.out.println(name + "'s turn");
     }
 
-    public static void displayIncorrectName() {
+    public void displayIncorrectName() {
         System.out.println("Doesn't look like a name! Type your name here: ");
     }
 
-    public static void askForBoardSize() {
+    public void askForBoardSize() {
         System.out.println("Choose the board size: ");
     }
+
+    public void displayBoard(int boardSize, BoardFactory board) {
+        System.out.println(board.boardToString(boardSize));
+    }
+
 }
