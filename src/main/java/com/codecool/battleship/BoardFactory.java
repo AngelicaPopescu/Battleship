@@ -141,12 +141,15 @@ public class BoardFactory extends Board {
     //The BoardFactory class has a @manualPlacement() method that handles manual ship placement on board
     public void manualPlacement(ShipType shipType, int x, int y, Direction direction) {
         ShipPlacement shipPlacement;
+        shipPlacement = new ShipPlacement(x, y, direction);
 
-        do {
-            shipPlacement = new ShipPlacement(x, y, direction);
-        } while (!isPlacementOK(shipType, shipPlacement));
+        if (!isPlacementOK(shipType, shipPlacement)) {
+            System.out.println("Ship outside of board or overlapping");
+        } else {
+            putShipOnBoard(shipType, oceanSize, shipPlacement);
+        }
 
-        putShipOnBoard(shipType, oceanSize, shipPlacement);
+
     }
 
 }

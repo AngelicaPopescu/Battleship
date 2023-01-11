@@ -31,39 +31,78 @@ public class Board {
     //The Board class has an isPlacementOk() method that verifies if placement of ship is possible
     public boolean isPlacementOK(ShipType shipType, ShipPlacement shipPlacement) {
 
-        boolean response = false;
+        boolean responseMargins = false;//false = ship extends over margins
         //check for margins of board
         switch (shipPlacement.shipDirection) {
             case EAST -> {
                 if ((shipPlacement.shipPosition.x + shipType.getLength()) < oceanSize) {
-                    response = true;
+                    responseMargins = true;//ship ok, inside margins
                 }
             }
             case WEST -> {
                 if ((shipPlacement.shipPosition.x - shipType.getLength()) >= 0) {
-                    response = true;
+                    responseMargins = true;
                 }
             }
             case NORTH -> {
                 if ((shipPlacement.shipPosition.y - shipType.getLength()) >= 0) {
-                    response = true;
+                    responseMargins = true;
                 }
             }
             case SOUTH -> {
                 if ((shipPlacement.shipPosition.y + shipType.getLength()) < oceanSize) {
-                    response = true;
+                    responseMargins = true;
                 }
             }
         }
 
 
+        boolean responseOverlapping = false;//false = ships are ok, not overlapping
+
+        if (!responseMargins) {
+            return false;
+        } else {
             //check for ship overlapping
-
-//        for () {
-//
-//        }
-
-        return response;
+            switch (shipPlacement.shipDirection) {
+                case EAST -> {
+                    for (int i = 0; i < shipType.getLength(); i++) {
+                        if (this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].squareStatus
+                                != SquareStatus.EMPTY) {
+                            responseOverlapping = true;//true = ships are overlapping
+                            break;
+                        }
+                    }
+                }
+                case WEST -> {
+                    for (int i = 0; i < shipType.getLength(); i++) {
+                        if (this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x - i].squareStatus
+                                != SquareStatus.EMPTY) {
+                            responseOverlapping = true;
+                            break;
+                        }
+                    }
+                }
+                case NORTH -> {
+                    for (int i = 0; i < shipType.getLength(); i++) {
+                        if (this.ocean[shipPlacement.shipPosition.y - i][shipPlacement.shipPosition.x].squareStatus
+                                != SquareStatus.EMPTY) {
+                            responseOverlapping = true;
+                            break;
+                        }
+                    }
+                }
+                case SOUTH -> {
+                    for (int i = 0; i < shipType.getLength(); i++) {
+                        if (this.ocean[shipPlacement.shipPosition.y + i][shipPlacement.shipPosition.x].squareStatus
+                                != SquareStatus.EMPTY) {
+                            responseOverlapping = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return !responseOverlapping;
     }
 
     public void boardDisplay(){
@@ -77,7 +116,7 @@ public class Board {
             }
         }
 
-        System.out.println("toDisplay: "+Arrays.deepToString(toDisplay));
+//        System.out.println("toDisplay: "+Arrays.deepToString(toDisplay));
         System.out.println();
         System.out.println(
                 Arrays.deepToString(toDisplay)
@@ -88,6 +127,8 @@ public class Board {
                         .replace("]]",""));
         System.out.println();
     }
+
+
     public String boardToString(int boardSize){
         StringBuilder sb = new StringBuilder();
         sb.append("   ");
@@ -105,29 +146,6 @@ public class Board {
         return String.valueOf(sb);
     }
 
-
-//    public void boardDisplay(){
-//        String[][] toDisplay = new String[oceanSize][oceanSize];
-//
-//        for (int row = 0; row < oceanSize; row++) {
-//            for (int col = 0; col < oceanSize; col++) {
-//                toDisplay[row][col]=" "+ocean[row][col].squareStatus.GetCharacter();
-////                toDisplay[row][col]=" "+ocean[row][col].graphicalSquareStatus()+" x: "
-////                        +ocean[row][col].X+" y: "+ocean[row][col].Y;
-//            }
-//        }
-//
-//        System.out.println("toDisplay: "+Arrays.deepToString(toDisplay));
-//        System.out.println();
-//        System.out.println(
-//                Arrays.deepToString(toDisplay)
-//                        .replace("[[", "")
-//                        .replace("], ", "\n")
-//                        .replace(",","")
-//                        .replace("[","")
-//                        .replace("]]",""));
-//        System.out.println();
-//    }
 
 
 }
