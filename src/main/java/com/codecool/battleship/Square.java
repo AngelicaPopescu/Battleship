@@ -3,18 +3,30 @@ package com.codecool.battleship;
 public class Square {
 
     //The Square class contains X and Y fields
-    int X;
+    private int X;
 
-    int Y;
+    private int Y;
+
+    public int getX() {
+        return X;
+    }
+
+    public int getY() {
+        return Y;
+    }
 
     //The Square class has a SquareStatus field
     SquareStatus squareStatus;
+
+    public SquareStatus getSquareStatus(){
+        return squareStatus;
+    }
+
 
     public Square(int x, int y, SquareStatus status){
         X = x;
         Y = y;
         squareStatus = status;
-
     }
 
     //The Square class has method that returns a graphical representation of SquareStatus
