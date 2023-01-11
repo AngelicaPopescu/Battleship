@@ -53,4 +53,7 @@ public class Display{
         System.out.println(board.boardToString(boardSize));
     }
 
+    public void askForPlacement() {
+        System.out.println("Choose placement ship method:\n2. Manual\n3. Random");
+    }
 }

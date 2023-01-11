@@ -5,7 +5,7 @@ import java.util.List;
 public class Player {
     private String playerName;
     private Board playerBoard;
-//    private List<Ship> playerShips;
+    private List<Ship> playerShips;
 
     public Player(String playerName, Board playerBoard) {
         this.playerName = playerName;
@@ -14,7 +14,7 @@ public class Player {
     }
 
     public String getPlayerName() {
-        return playerName;
+        return this.playerName;
     }
 
     public Board getPlayerBoard() {
@@ -22,6 +22,11 @@ public class Player {
     }
 
     public boolean isAlive() {
+//        if (playerShips != null) {
+////            for (Ship ship : playerShips) {
+//////                if (!Ship.isSunk()) return true;
+////            }
+//        }
         return false;
     }
 }
