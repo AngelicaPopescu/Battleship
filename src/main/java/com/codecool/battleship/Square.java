@@ -37,17 +37,8 @@ public class Square {
     //The Square class has method that returns a graphical representation of SquareStatus
     public char graphicalSquareStatus() {
         return switch (this.squareStatus) {
-            case EMPTY, HIT, SHIP, MISSED, SUNK -> this.squareStatus.GetCharacter();
+            case EMPTY, HIT, SHIP, MISSED, SUNK, NEARBY -> this.squareStatus.GetCharacter();
         };
     }
-
-    //    public char graphicalSquareStatus() {
-//        return switch (this.squareStatus) {
-//            case EMPTY -> 'E';
-//            case HIT -> 'H';
-//            case SHIP -> 'S';
-//            case MISSED -> 'M';
-//        };
-//    }
 
 }

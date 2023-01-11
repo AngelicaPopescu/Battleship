@@ -3,7 +3,7 @@ package com.codecool.battleship;
 public enum SquareStatus {
 
         //The SquareStatus enum represents possible square statuses (empty, ship, hit, missed).
-        EMPTY, SHIP, HIT, MISSED, SUNK;
+        EMPTY, SHIP, HIT, MISSED, SUNK, NEARBY;
 
 
         //Each SquareStatus has a unicode character that can be used for printing it out.
@@ -15,7 +15,9 @@ public enum SquareStatus {
                     return 'H';
             } else if (this == SquareStatus.SHIP) {
                     return 'S';
-            }  else if (this == SquareStatus.MISSED) {
+            }  else if (this == SquareStatus.NEARBY) {
+                return 'M';
+            } else if (this == SquareStatus.MISSED) {
                 return 'M';
             } else { //Sunk
                     return 'X';
