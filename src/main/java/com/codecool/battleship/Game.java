@@ -10,10 +10,12 @@ public class Game {
     public void play() {
         //    List<Ship> shipsPlayer1 = (List<Ship>) new Ship();
         BoardFactory boardPlayer1 = new BoardFactory();
-        Player player1 = new Player(input.getPlayerName(), boardPlayer1);
+        String namePlayer1 = input.getNameForPlayer();
+        Player player1 = new Player(namePlayer1, boardPlayer1);
+        System.out.println(player1.getPlayerName());
         //    List<Ship> shipsPlayer2 = (List<Ship>) new Ship();
         BoardFactory boardPlayer2 = new BoardFactory();
-        Player player2 = new Player(input.getPlayerName(), boardPlayer2);
+        Player player2 = new Player(input.getNameForPlayer(), boardPlayer2);
         Player player = player1;
         do {
             int boardSize = input.askForBoardSize();

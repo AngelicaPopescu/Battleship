@@ -35,14 +35,15 @@ public class Input {
         return false;
     }
 
-    public String getPlayerName() {
+    public String getNameForPlayer() {
         String name;
         while(true) {
             Scanner input = new Scanner(System.in);
             Display.askForPlayerName();
+            String userChoice = input.nextLine();
             try {
-                if (input.nextLine().matches("[a-zA-Z]+")) {
-                    name = String.valueOf(input);
+                if (userChoice.matches("[a-zA-Z]+")) {
+                    name = userChoice;
                     break;
                 } else {
                     Display.displayIncorrectName();
