@@ -6,13 +6,15 @@ import java.util.Scanner;
 
 public class Input {
 
+    private Scanner scanner;
+
     public int getGameMode() {
         int[] validAnswers = {1, 2, 3};
         int gameMode;
         while (true) {
-            Scanner input = new Scanner(System.in);
+            scanner = new Scanner(System.in);
             Display.askForInput();
-            int userInput = input.nextInt();
+            int userInput = scanner.nextInt();
             try {
                 if (checkForValidAnswer(userInput, validAnswers)) {
                     gameMode = userInput;
@@ -38,9 +40,9 @@ public class Input {
     public String getNameForPlayer() {
         String name;
         while(true) {
-            Scanner input = new Scanner(System.in);
+            scanner = new Scanner(System.in);
             Display.askForPlayerName();
-            String userChoice = input.nextLine();
+            String userChoice = scanner.nextLine();
             try {
                 if (userChoice.matches("[a-zA-Z]+")) {
                     name = userChoice;
@@ -59,9 +61,9 @@ public class Input {
         int row;
         int col;
         while (true) {
-            Scanner playerCoordinates = new Scanner(System.in);
+            scanner = new Scanner(System.in);
             Display.askForShootCoordinates();
-            String inputs = playerCoordinates.nextLine();
+            String inputs = scanner.nextLine();
             if (Objects.equals(inputs, "quit")) {
                 System.exit(0);
             }
@@ -87,7 +89,7 @@ public class Input {
     public int askForBoardSize() {
         int boardSize;
         while (true) {
-            Scanner scanner = new Scanner(System.in);
+            scanner = new Scanner(System.in);
             Display.askForBoardSize();
             boardSize = scanner.nextInt();
             try {
