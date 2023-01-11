@@ -90,7 +90,7 @@ public class Input {
             Display.askForBoardSize();
             boardSize = scanner.nextInt();
             try {
-                if (boardSize >= 1 && boardSize <= 20 && boardSize % 2 == 0) {
+                if (boardSize >= 10 && boardSize <= 20) {
                     break;
                 } else {
                     Display.displayInvalidChoiceMessage();
