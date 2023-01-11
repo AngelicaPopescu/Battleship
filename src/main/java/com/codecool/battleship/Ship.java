@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Ship {
 
-    private List<Square>squareList;
+    private List<Square> squareList;
     private Ship shipType;
 
 
-    public Ship (List<Square> squareList ){
+    public Ship(List<Square> squareList) {
         this.squareList = squareList;
     }
 
@@ -37,7 +37,7 @@ public class Ship {
 //        return false;
 //    }
 
-//    public boolean isSunk(){
+    //    public boolean isSunk(){
 //
 //        if(squareList != null){
 //            for (Square s: squareList){
@@ -48,6 +48,34 @@ public class Ship {
 //        }
 //        return true;
 //    }
+    public void setShot(Square square) {
+        if (squareList != null) {
+            for (Square s : squareList) {
+                if (s.getY() == square.getY() && s.getX() == square.getX()) {
+                    s.setSquareStatus(SquareStatus.HIT);
+                }
+            }
+        }
+    }
 
+    public SquareStatus getShotStatus(Square square) {
+        if (squareList != null) {
+            for (Square s : squareList) {
+                if (s.getY() == square.getY() && s.getX() == square.getX()) {
+                    return s.getSquareStatus();
+                }
+            }
+        }
+        return SquareStatus.MISSED;
+    }
 
+    public void setSunk() {
+        if (squareList != null) {
+            for (Square s : squareList) {
+                if (s.getSquareStatus() == SquareStatus.HIT) {
+                    s.setSquareStatus(SquareStatus.SUNK);
+                }
+            }
+        }
+    }
 }
