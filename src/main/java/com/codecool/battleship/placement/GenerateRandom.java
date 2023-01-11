@@ -5,7 +5,7 @@ import java.util.Random;
 public class GenerateRandom {
 
     public static int randomCoordinates(int oceanSize){
-        return (int) Math.floor(Math.random()*(oceanSize+1));
+        return (int) Math.floor(Math.random()*(oceanSize));
     }
 
 

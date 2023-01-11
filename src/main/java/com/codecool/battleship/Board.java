@@ -30,48 +30,64 @@ public class Board {
 
     //The Board class has an isPlacementOk() method that verifies if placement of ship is possible
     public boolean isPlacementOK(ShipType shipType, ShipPlacement shipPlacement) {
+
         boolean response = false;
         //check for margins of board
-        if (shipPlacement.shipPosition.x >= 0 && shipPlacement.shipPosition.x <= oceanSize - 1) {
-            if (shipPlacement.shipPosition.y >= 0 && shipPlacement.shipPosition.y <= oceanSize - 1) {
-                response = true;
+        switch (shipPlacement.shipDirection) {
+            case EAST -> {
+                if ((shipPlacement.shipPosition.x + shipType.getLength()) < oceanSize) {
+                    response = true;
+                }
+            }
+            case WEST -> {
+                if ((shipPlacement.shipPosition.x - shipType.getLength()) >= 0) {
+                    response = true;
+                }
+            }
+            case NORTH -> {
+                if ((shipPlacement.shipPosition.y - shipType.getLength()) >= 0) {
+                    response = true;
+                }
+            }
+            case SOUTH -> {
+                if ((shipPlacement.shipPosition.y + shipType.getLength()) < oceanSize) {
+                    response = true;
+                }
             }
         }
+
+
             //check for ship overlapping
 
 //        for () {
 //
 //        }
 
+        return response;
+    }
 
+    public void boardDisplay(){
+        String[][] toDisplay = new String[oceanSize][oceanSize];
 
-
-
-            return response;
+        for (int row = 0; row < oceanSize; row++) {
+            for (int col = 0; col < oceanSize; col++) {
+                toDisplay[row][col]=" "+ocean[row][col].squareStatus.GetCharacter();
+//                toDisplay[row][col]=" "+ocean[row][col].graphicalSquareStatus()+" x: "
+//                        +ocean[row][col].X+" y: "+ocean[row][col].Y;
+            }
         }
 
-//    public void boardDisplay(){
-//        String[][] toDisplay = new String[oceanSize][oceanSize];
-//
-//        for (int row = 0; row < oceanSize; row++) {
-//            for (int col = 0; col < oceanSize; col++) {
-//                toDisplay[row][col]=" "+ocean[row][col].squareStatus.GetCharacter();
-////                toDisplay[row][col]=" "+ocean[row][col].graphicalSquareStatus()+" x: "
-////                        +ocean[row][col].X+" y: "+ocean[row][col].Y;
-//            }
-//        }
-//
-//        System.out.println("toDisplay: "+Arrays.deepToString(toDisplay));
-//        System.out.println();
-//        System.out.println(
-//                Arrays.deepToString(toDisplay)
-//                        .replace("[[", "")
-//                        .replace("], ", "\n")
-//                        .replace(",","")
-//                        .replace("[","")
-//                        .replace("]]",""));
-//        System.out.println();
-//    }
+        System.out.println("toDisplay: "+Arrays.deepToString(toDisplay));
+        System.out.println();
+        System.out.println(
+                Arrays.deepToString(toDisplay)
+                        .replace("[[", "")
+                        .replace("], ", "\n")
+                        .replace(",","")
+                        .replace("[","")
+                        .replace("]]",""));
+        System.out.println();
+    }
 
 
 }
