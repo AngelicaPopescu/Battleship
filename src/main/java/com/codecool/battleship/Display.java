@@ -1,5 +1,7 @@
 package com.codecool.battleship;
 
+import java.util.Arrays;
+
 public class Display {
     public static void displayWelcomeMessage (){
         System.out.println("Battleship");
@@ -35,5 +37,9 @@ public class Display {
 
     public static void askForBoardSize() {
         System.out.println("Choose the board size: ");
+    }
+
+    public void displayBoard(int boardSize, BoardFactory board) {
+        System.out.println(board.boardToString(boardSize));
     }
 }

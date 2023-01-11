@@ -33,27 +33,21 @@ public class Board {
         return true;
     }
 
-    public void boardDisplay(){
-        String[][] toDisplay = new String[oceanSize][oceanSize];
-
-        for (int row = 0; row < oceanSize; row++) {
-            for (int col = 0; col < oceanSize; col++) {
-                toDisplay[row][col]=" "+ocean[row][col].squareStatus.GetCharacter();
-//                toDisplay[row][col]=" "+ocean[row][col].graphicalSquareStatus()+" x: "
-//                        +ocean[row][col].X+" y: "+ocean[row][col].Y;
-            }
+    public String boardToString(int boardSize){
+        StringBuilder sb = new StringBuilder();
+        sb.append("   ");
+        for (int i = 0; i < boardSize; i++) {
+            sb.append("  ").append((char) ('A' + i));
         }
-
-        System.out.println("toDisplay: "+Arrays.deepToString(toDisplay));
-        System.out.println();
-        System.out.println(
-                Arrays.deepToString(toDisplay)
-                        .replace("[[", "")
-                        .replace("], ", "\n")
-                        .replace(",","")
-                        .replace("[","")
-                        .replace("]]",""));
-        System.out.println();
+        sb.append("\n");
+        for (int y = 0; y < boardSize; y++) {
+            sb.append(String.format("%3s", y + 1));;
+            for (int x = 0; x < ocean[0].length; x++) {
+                sb.append("  ").append(ocean[y][x].squareStatus.GetCharacter());
+            }
+            sb.append("\n");
+        }
+        return String.valueOf(sb);
     }
 
 
