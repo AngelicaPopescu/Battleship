@@ -23,6 +23,10 @@ public class BoardFactory extends Board {
 //            System.out.println("ship random placement: "+count);
         } while (!isPlacementOK(shipType, shipPlacement));
 
+        putShipOnBoard(shipType, oceanSize, shipPlacement);
+    }
+
+    private void putShipOnBoard(ShipType shipType, int oceanSize, ShipPlacement shipPlacement) {
         if (isPlacementOK(shipType, shipPlacement)) {
             switch (shipPlacement.shipDirection) {
                 case EAST -> {
@@ -35,7 +39,7 @@ public class BoardFactory extends Board {
                                     SquareStatus.NEARBY;
                         }
                         //N under
-                        if (shipPlacement.shipPosition.y<(oceanSize-1)) {
+                        if (shipPlacement.shipPosition.y<(oceanSize -1)) {
                             this.ocean[shipPlacement.shipPosition.y+1][shipPlacement.shipPosition.x+i].squareStatus =
                                     SquareStatus.NEARBY;
                         }
@@ -46,8 +50,8 @@ public class BoardFactory extends Board {
                                 SquareStatus.NEARBY;
                     }
                     //N at right
-                    if ((shipPlacement.shipPosition.x+shipType.getLength())<=(oceanSize-1)) {
-                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x+shipType.getLength()].squareStatus =
+                    if ((shipPlacement.shipPosition.x+ shipType.getLength())<=(oceanSize -1)) {
+                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x+ shipType.getLength()].squareStatus =
                                 SquareStatus.NEARBY;
                     }
                 }
@@ -61,18 +65,18 @@ public class BoardFactory extends Board {
                                     SquareStatus.NEARBY;
                         }
                         //N under
-                        if (shipPlacement.shipPosition.y<(oceanSize-1)) {
+                        if (shipPlacement.shipPosition.y<(oceanSize -1)) {
                             this.ocean[shipPlacement.shipPosition.y+1][shipPlacement.shipPosition.x-i].squareStatus =
                                     SquareStatus.NEARBY;
                         }
                     }
                     //N at left
-                    if ((shipPlacement.shipPosition.x-shipType.getLength())>=0) {
-                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x-shipType.getLength()].squareStatus =
+                    if ((shipPlacement.shipPosition.x- shipType.getLength())>=0) {
+                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x- shipType.getLength()].squareStatus =
                                 SquareStatus.NEARBY;
                     }
                     //N at right
-                    if (shipPlacement.shipPosition.x<(oceanSize-1)) {
+                    if (shipPlacement.shipPosition.x<(oceanSize -1)) {
                         this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x+1].squareStatus =
                                 SquareStatus.NEARBY;
                     }
@@ -87,18 +91,18 @@ public class BoardFactory extends Board {
                                     SquareStatus.NEARBY;
                         }
                         //N at right
-                        if (shipPlacement.shipPosition.x<(oceanSize-1)) {
+                        if (shipPlacement.shipPosition.x<(oceanSize -1)) {
                             this.ocean[shipPlacement.shipPosition.y-i][shipPlacement.shipPosition.x+1].squareStatus =
                                     SquareStatus.NEARBY;
                         }
                     }
                     //N on top
-                    if (shipPlacement.shipPosition.y-shipType.getLength()>=0) {
-                        this.ocean[shipPlacement.shipPosition.y-shipType.getLength()][shipPlacement.shipPosition.x].squareStatus =
+                    if (shipPlacement.shipPosition.y- shipType.getLength()>=0) {
+                        this.ocean[shipPlacement.shipPosition.y- shipType.getLength()][shipPlacement.shipPosition.x].squareStatus =
                                 SquareStatus.NEARBY;
                     }
                     //N under
-                    if (shipPlacement.shipPosition.y<(oceanSize-1)) {
+                    if (shipPlacement.shipPosition.y<(oceanSize -1)) {
                         this.ocean[shipPlacement.shipPosition.y+1][shipPlacement.shipPosition.x].squareStatus =
                                 SquareStatus.NEARBY;
                     }
@@ -113,7 +117,7 @@ public class BoardFactory extends Board {
                                     SquareStatus.NEARBY;
                         }
                         //N at right
-                        if (shipPlacement.shipPosition.x<(oceanSize-1)) {
+                        if (shipPlacement.shipPosition.x<(oceanSize -1)) {
                             this.ocean[shipPlacement.shipPosition.y+i][shipPlacement.shipPosition.x+1].squareStatus =
                                     SquareStatus.NEARBY;
                         }
@@ -124,8 +128,8 @@ public class BoardFactory extends Board {
                                 SquareStatus.NEARBY;
                     }
                     //N under
-                    if ((shipPlacement.shipPosition.y+shipType.getLength())<=(oceanSize-1)) {
-                        this.ocean[shipPlacement.shipPosition.y+shipType.getLength()][shipPlacement.shipPosition.x].squareStatus =
+                    if ((shipPlacement.shipPosition.y+ shipType.getLength())<=(oceanSize -1)) {
+                        this.ocean[shipPlacement.shipPosition.y+ shipType.getLength()][shipPlacement.shipPosition.x].squareStatus =
                                 SquareStatus.NEARBY;
                     }
                 }
@@ -135,9 +139,14 @@ public class BoardFactory extends Board {
 
 
     //The BoardFactory class has a @manualPlacement() method that handles manual ship placement on board
-    public ShipPlacement manualPlacement(ShipType ship, int x, int y, Direction direction) {
-        ShipPlacement shipPlacement = new ShipPlacement(x, y, direction);
-        return shipPlacement;
+    public void manualPlacement(ShipType shipType, int x, int y, Direction direction) {
+        ShipPlacement shipPlacement;
+
+        do {
+            shipPlacement = new ShipPlacement(x, y, direction);
+        } while (!isPlacementOK(shipType, shipPlacement));
+
+        putShipOnBoard(shipType, oceanSize, shipPlacement);
     }
 
 }
