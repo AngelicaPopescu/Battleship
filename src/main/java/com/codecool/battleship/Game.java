@@ -23,7 +23,9 @@ public class Game {
             boardPlayer2.setOcean(boardSize);
             display.displayPlayerTurn(player.getPlayerName());
             display.displayBoard(boardSize, (player == player1)?boardPlayer1:boardPlayer2); // switch board for player
-            int[] coordinates = input.getValidCoordinates(boardSize);
+            int[] coordinates = input.getValidCoordinates(boardSize, "place");
+            char direction = input.getDirection();
+
 
             player = (player == player1)? player2 : player1; // switch player
         } while (!player.isAlive());

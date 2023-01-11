@@ -7,20 +7,21 @@ import java.util.Scanner;
 public class Input {
 
     private Scanner scanner;
+    Display display = new Display();
 
     public int getGameMode() {
         int[] validAnswers = {1, 2, 3};
         int gameMode;
         while (true) {
             scanner = new Scanner(System.in);
-            Display.askForInput();
+            display.askForInput();
             int userInput = scanner.nextInt();
             try {
                 if (checkForValidAnswer(userInput, validAnswers)) {
                     gameMode = userInput;
                     break;
                 } else {
-                    Display.displayInvalidChoiceMessage();
+                    display.displayInvalidChoiceMessage();
                 }
             } catch (InputMismatchException ignored) {
             }
@@ -28,27 +29,27 @@ public class Input {
         return gameMode;
     }
 
-    private boolean checkForValidAnswer(int input, int [] validAnswers){
-        for(int elem: validAnswers) {
-           if (elem == input){
-               return true;
-           }
+    private boolean checkForValidAnswer(int input, int[] validAnswers) {
+        for (int elem : validAnswers) {
+            if (elem == input) {
+                return true;
+            }
         }
         return false;
     }
 
     public String getNameForPlayer() {
         String name;
-        while(true) {
+        while (true) {
             scanner = new Scanner(System.in);
-            Display.askForPlayerName();
+            display.askForPlayerName();
             String userChoice = scanner.nextLine();
             try {
                 if (userChoice.matches("[a-zA-Z]+")) {
                     name = userChoice;
                     break;
                 } else {
-                    Display.displayIncorrectName();
+                    display.displayIncorrectName();
                 }
             } catch (InputMismatchException ignored) {
             }
@@ -56,13 +57,17 @@ public class Input {
         return name;
     }
 
-    public int [] getValidCoordinates(int boardSize) {
-        int [] coordinates = new int[2];
+    public int[] getValidCoordinates(int boardSize, String action) {
+        int[] coordinates = new int[2];
         int row;
         int col;
         while (true) {
             scanner = new Scanner(System.in);
-            Display.askForShootCoordinates();
+            if ((checkCoordinatesForAction(action))) {
+                display.askForPlaceCoordinates();
+            } else {
+                display.askForShootCoordinates();
+            }
             String inputs = scanner.nextLine();
             if (Objects.equals(inputs, "quit")) {
                 System.exit(0);
@@ -76,32 +81,63 @@ public class Input {
                         coordinates[1] = row;
                         break;
                     } else {
-                        Display.displayInvalidChoiceMessage();
+                        display.displayInvalidChoiceMessage();
                     }
                 }
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                Display.displayInvalidChoiceMessage();
+                display.displayInvalidChoiceMessage();
             }
         }
         return coordinates;
     }
 
-    public int askForBoardSize() {
-        int boardSize;
+    public char getDirection() {
+        int[] validAnswers = new int[]{110, 115, 101, 119};
+        char direction;
+        int value;
         while (true) {
             scanner = new Scanner(System.in);
-            Display.askForBoardSize();
-            boardSize = scanner.nextInt();
+            display.getBoatDirection();
+            String inputs = scanner.nextLine();
             try {
-                if (boardSize >= 10 && boardSize <= 20) {
-                    break;
+                if (!Objects.equals(inputs, "") && inputs.length() == 1) {
+                    value = inputs.toLowerCase().charAt(0);
+                    if (checkForValidAnswer(value, validAnswers)) {
+                        direction = inputs.charAt(0);
+                        break;
+                    } else {
+                        display.displayInvalidChoiceMessage();
+                    }
                 } else {
-                    Display.displayInvalidChoiceMessage();
+                    display.displayInvalidChoiceMessage();
                 }
-            } catch (InputMismatchException ignored) {
-
+                } catch(NumberFormatException | ArrayIndexOutOfBoundsException e){
+                    display.displayInvalidChoiceMessage();
+                }
             }
+            return direction;
         }
-    return boardSize;
+
+        private boolean checkCoordinatesForAction (String action){
+            return Objects.equals(action, "place");
+        }
+
+        public int askForBoardSize () {
+            int boardSize;
+            while (true) {
+                scanner = new Scanner(System.in);
+                display.askForBoardSize();
+                boardSize = scanner.nextInt();
+                try {
+                    if (boardSize >= 10 && boardSize <= 20) {
+                        break;
+                    } else {
+                        display.displayInvalidChoiceMessage();
+                    }
+                } catch (InputMismatchException ignored) {
+
+                }
+            }
+            return boardSize;
+        }
     }
-}
