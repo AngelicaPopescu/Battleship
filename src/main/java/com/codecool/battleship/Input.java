@@ -36,17 +36,27 @@ public class Input {
     }
 
     public static String getPlayerName() {
-        Scanner input = new Scanner(System.in);
-        Display.askForPlayerName();
-        return input.nextLine();
+        String name;
+        while(true) {
+            Scanner input = new Scanner(System.in);
+            Display.askForPlayerName();
+            try {
+                if (input.nextLine().matches("[a-zA-Z]+")) {
+                    name = String.valueOf(input);
+                    break;
+                } else {
+                    Display.displayIncorrectName();
+                }
+            } catch (InputMismatchException ignored) {
+            }
+        }
+        return name;
     }
 
     public static int [] getValidCoordinates(int boardSize) {
         int [] coordinates = new int[2];
         int row;
         int col;
-        String x;
-        int y;
         while (true) {
             Scanner playerCoordinates = new Scanner(System.in);
             Display.askForShootCoordinates();
@@ -55,22 +65,40 @@ public class Input {
                 System.exit(0);
             }
             try {
-                x = inputs.substring(0, 1).toUpperCase();
-                col = x.charAt(0) - 65;
-                y = Integer.parseInt(inputs.substring(1));
-                row = y - 1;
-                if (row >= 0 && boardSize - 1 > row && col >= 0 && boardSize -1 > col) {
-                    coordinates[0] = col;
-                    coordinates[1] = row;
-                    break;
-                } else {
-                    Display.displayInvalidChoiceMessage();
+                if (!Objects.equals(inputs, "")) {
+                    col = inputs.substring(0, 1).toUpperCase().charAt(0) - 65;
+                    row = Integer.parseInt(inputs.substring(1)) - 1;
+                    if (row >= 0 && boardSize - 1 > row && col >= 0 && boardSize - 1 > col) {
+                        coordinates[0] = col;
+                        coordinates[1] = row;
+                        break;
+                    } else {
+                        Display.displayInvalidChoiceMessage();
+                    }
                 }
-
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 Display.displayInvalidChoiceMessage();
             }
         }
         return coordinates;
+    }
+
+    public static int askForBoardSize() {
+        int boardSize;
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            Display.askForBoardSize();
+            boardSize = scanner.nextInt();
+            try {
+                if (boardSize >= 1 && boardSize <= 20 && boardSize % 2 == 0) {
+                    break;
+                } else {
+                    Display.displayInvalidChoiceMessage();
+                }
+            } catch (InputMismatchException ignored) {
+
+            }
+        }
+    return boardSize;
     }
 }

@@ -1,7 +1,5 @@
 package com.codecool.battleship;
 
-import java.util.Arrays;
-
 public class Display {
     public static void displayWelcomeMessage (){
         System.out.println("Battleship");
@@ -31,5 +29,11 @@ public class Display {
         System.out.println(name + "'s turn");
     }
 
+    public static void displayIncorrectName() {
+        System.out.println("Doesn't look like a name! Type your name here: ");
+    }
 
+    public static void askForBoardSize() {
+        System.out.println("Choose the board size: ");
+    }
 }
