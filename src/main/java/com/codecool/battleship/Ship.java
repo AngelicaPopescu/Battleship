@@ -8,7 +8,7 @@ public class Ship {
     private Ship shipType;
 
 
-    public Ship (List<Square> squareList ){
+    public Ship(List<Square> squareList) {
         this.squareList = squareList;
     }
 
@@ -26,28 +26,56 @@ public class Ship {
         this.shipType = shipType;
     }
 
-    public boolean isShipPosition(Square square){
-        if(squareList != null){
-            for (Square s: squareList){
+//    public boolean isShipPosition(Square square){
+//        if(squareList != null){
+//            for (Square s: squareList){
+//                if (s.getY() == square.getY() && s.getX() == square.getX()) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
+
+    //    public boolean isSunk(){
+//
+//        if(squareList != null){
+//            for (Square s: squareList){
+//                if(s.getSquareStatus == SquareStatus.SHIP){
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+    public void setShot(Square square) {
+        if (squareList != null) {
+            for (Square s : squareList) {
                 if (s.getY() == square.getY() && s.getX() == square.getX()) {
-                    return true;
+                    s.setSquareStatus(SquareStatus.HIT);
                 }
             }
         }
-        return false;
     }
 
-    public boolean isSunk(){
-
-        if(squareList != null){
-            for (Square s: squareList){
-                if(s.getSquareStatus() == SquareStatus.SHIP){
-                    return false;
+    public SquareStatus getShotStatus(Square square) {
+        if (squareList != null) {
+            for (Square s : squareList) {
+                if (s.getY() == square.getY() && s.getX() == square.getX()) {
+                    return s.getSquareStatus();
                 }
             }
         }
-        return true;
+        return SquareStatus.MISSED;
     }
 
-
+    public void setSunk() {
+        if (squareList != null) {
+            for (Square s : squareList) {
+                if (s.getSquareStatus() == SquareStatus.HIT) {
+                    s.setSquareStatus(SquareStatus.SUNK);
+                }
+            }
+        }
+    }
 }
