@@ -25,8 +25,8 @@ public class Display{
         System.out.println("Player name: ");
     }
 
-    public void askForPlaceCoordinates() {
-        System.out.println("Place to: ");
+    public void askForPlaceCoordinates(ShipType shipType) {
+        System.out.println("Place ship " + shipType.name() + " (length " + shipType.getLength() + ") to: ");
     }
 
     public void getBoatDirection() {
@@ -54,6 +54,8 @@ public class Display{
     }
 
     public void askForPlacement() {
-        System.out.println("Choose placement ship method:\n2. Manual\n3. Random");
+        System.out.println("Choose placement ship method:\n1. Manual\n2. Random");
     }
+
+
 }
