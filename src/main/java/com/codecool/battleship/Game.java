@@ -9,6 +9,8 @@ import java.util.List;
 public class Game {
     public Display display = new Display();
     public Input input = new Input();
+    public Square square;
+    public Ship ship;
 
 
     public void play() {
@@ -33,7 +35,9 @@ public class Game {
             shipsListPlayer1.add(ship);
             shipsListPlayer2.add(ship);
         }
+        int repeat = 0;
         do {
+            repeat += 1;
             display.displayPlayerTurn(player.getPlayerName());
             display.displayBoard(boardSize, board, "place");
             int placementMethod = input.askForPlacementMethod();
@@ -60,15 +64,25 @@ public class Game {
             }
             player = (player == player1)? player2 : player1; // switch player
             board = (player == player2)? boardPlayer2 : boardPlayer1; // switch player
-        } while (shipsListPlayer2.size() == 5);
+        } while (!(repeat == 2));
 
 
         do {
+            display.displayPlayerTurn(player.getPlayerName());
+            display.displayBoard(boardSize, board, "shoot");
+            int [] coordinates = input.getValidCoordinates(boardSize, "shoot", ShipType.CARRIER);
+            int x = coordinates[0];
+            int y = coordinates[1];
+            if (board.ocean[y][x].squareStatus.GetCharacter() == 'S'){
+                square = new Square(x, y , board.ocean[y][x].squareStatus);
+                board.ocean[y][x].squareStatus = SquareStatus.HIT;
 
+
+            }
 
 
             player = (player == player1)? player2 : player1; // switch player
-            board = (player == player2)? boardPlayer2 : boardPlayer1; // switch player
+            board = (player == player1)? boardPlayer2 : boardPlayer1; // switch player
         } while (player.isAlive());
 
     }
