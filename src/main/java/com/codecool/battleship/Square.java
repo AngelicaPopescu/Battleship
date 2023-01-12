@@ -28,9 +28,9 @@ public class Square {
         this.squareStatus = squareStatus;
     }
 
-    public Square(int x, int y, SquareStatus status){
-        X = x;
-        Y = y;
+    public Square(int y, int x, SquareStatus status){
+        this.X = x;
+        this.Y = y;
         this.squareStatus = status;
     }
 

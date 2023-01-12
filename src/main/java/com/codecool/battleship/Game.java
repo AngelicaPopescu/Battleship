@@ -11,6 +11,8 @@ public class Game {
     public Input input = new Input();
     public Square square;
 
+    public Ship ship;
+
 
 
     public void play() throws InterruptedException {
@@ -31,8 +33,8 @@ public class Game {
         for (ShipType shipType: shipTypes) {
             Ship shipPlayer1 = new Ship(shipType);
             Ship shipPlayer2 = new Ship(shipType);
-            shipsListPlayer1.add(shipPlayer1);
-            shipsListPlayer2.add(shipPlayer2);
+            player1.getShipList().add(shipPlayer1);
+            player2.getShipList().add(shipPlayer2);
         }
         int repeat = 0;
         do {
@@ -41,7 +43,7 @@ public class Game {
             display.displayBoard(boardSize, board, "place", player.getPlayerName());
             int placementMethod = input.askForPlacementMethod();
             if (placementMethod == 1) {
-                for (Ship ship : ((player == player1)? shipsListPlayer1 : shipsListPlayer2)) {
+                for (Ship ship : ((player == player1)? player1.getShipList() : player2.getShipList())) {
                     int[] coordinates;
                     int x;
                     int y;
@@ -56,7 +58,7 @@ public class Game {
 
                 }
             } else if (placementMethod == 2) {
-                for (Ship ship : ((player == player1)? shipsListPlayer1 : shipsListPlayer2)) {
+                for (Ship ship : ((player == player1)? player1.getShipList() : player2.getShipList())) {
                     board.randomPlacement(ship, boardSize);
                 }
                 display.displayBoard(boardSize, board, "place", player.getPlayerName());
@@ -76,13 +78,25 @@ public class Game {
             if (board.ocean[y][x].squareStatus.GetCharacter() == 'S'){
               square = board.ocean[y][x];
                 board.ocean[y][x].squareStatus = SquareStatus.HIT;
+                for (Ship ship: (player == player1)? player1.getShipList() : player2.getShipList()) {
+//                for (Ship ship: player.getShipList()) {
+//                    System.out.println("For loop started line 84 Game");
+                    for (int i=0; i<ship.getSquareList().size(); i++) {
+//                        System.out.println("For loop started line 86 Game");
+                        System.out.println("ship: "+ship.getShipType()+" x: "+ ship.getSquareList().get(i).getX()+"  y: "+
+                                ship.getSquareList().get(i).getY());
+                        System.out.println("X: "+x+"  Y: "+y);
+                        if (ship.getSquareList().get(i).getX()==x && ship.getSquareList().get(i).getY()==y) {
+                            System.out.println("ship list contains square! :)");
+                            ship.getSquareList().get(i).squareStatus = SquareStatus.HIT;
+                            ship.checkAndSetSunk(board);
 
-                for (Ship ship: (player == player1)? shipsListPlayer1 : shipsListPlayer2) {
-                    if (ship.getSquareList().contains(square)){
-                        for (int i=0; i<ship.getSquareList().size(); i++){
-                            if (ship.getSquareList().get(i) ==  square) {
-                                ship.getSquareList().get(i).squareStatus = SquareStatus.HIT;
-                                ship.checkAndSetSunk(board);
+//                for (Ship ship: (player == player1)? shipsListPlayer1 : shipsListPlayer2) {
+//                    if (ship.getSquareList().contains(square)){
+//                        for (int i=0; i<ship.getSquareList().size(); i++){
+//                            if (ship.getSquareList().get(i) ==  square) {
+//                                ship.getSquareList().get(i).squareStatus = SquareStatus.HIT;
+//                                ship.checkAndSetSunk(board);
 
 
                             }
@@ -102,8 +116,7 @@ public class Game {
             }
 
             player = (player == player1)? player2 : player1; // switch player
-
-        } while (player.isAlive((player == player1)? shipsListPlayer1 : shipsListPlayer2));
+        } while (player.isAlive((player == player1)? player1.getShipList() : player2.getShipList()));
 
 
     }

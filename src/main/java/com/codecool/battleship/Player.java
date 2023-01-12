@@ -1,16 +1,24 @@
 package com.codecool.battleship;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private String playerName;
-    private Board playerBoard;
-    private List<Ship> shipList;
+    private final String playerName;
+    private final Board playerBoard;
+
+    private final List<Ship> shipList;
+
     private Input input = new Input();
+
+    public List<Ship> getShipList() {
+        return shipList;
+    }
 
     public Player(String playerName, Board playerBoard) {
         this.playerName = playerName;
         this.playerBoard = playerBoard;
+        this.shipList = new ArrayList<>();
 //        this.playerShips = playerShips;
     }
 
