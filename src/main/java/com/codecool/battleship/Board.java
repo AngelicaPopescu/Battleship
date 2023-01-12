@@ -106,7 +106,8 @@ public class Board {
         return !responseOverlapping;
     }
 
-    public String boardToString(int boardSize, String action){
+    public String boardToString(int boardSize, String action, Player player){
+        System.out.println("Player board: "+ player.getPlayerName());
         StringBuilder sb = new StringBuilder();
         sb.append("   ");
         for (int i = 0; i < boardSize; i++) {

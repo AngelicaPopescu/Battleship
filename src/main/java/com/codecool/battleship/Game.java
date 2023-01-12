@@ -10,6 +10,7 @@ public class Game {
     public Display display = new Display();
     public Input input = new Input();
     public Square square;
+
     public Ship ship;
 
 
@@ -26,24 +27,24 @@ public class Game {
         int boardSize = input.askForBoardSize();
         boardPlayer1.setOcean(boardSize);
         boardPlayer2.setOcean(boardSize);
-        List<Ship> shipsListPlayer1 = new ArrayList<>();
-        List<Ship> shipsListPlayer2 = new ArrayList<>();
+//        List<Ship> shipsListPlayer1 = new ArrayList<>();
+//        List<Ship> shipsListPlayer2 = new ArrayList<>();
         ShipType[] shipTypes = ShipType.values();
 
         for (ShipType shipType: shipTypes) {
             Ship shipPlayer1 = new Ship(shipType);
             Ship shipPlayer2 = new Ship(shipType);
-            shipsListPlayer1.add(shipPlayer1);
-            shipsListPlayer2.add(shipPlayer2);
+            player1.getShipList().add(shipPlayer1);
+            player2.getShipList().add(shipPlayer2);
         }
         int repeat = 0;
         do {
             repeat += 1;
             display.displayPlayerTurn(player.getPlayerName());
-            display.displayBoard(boardSize, board, "place");
+            display.displayBoard(boardSize, board, "place", player);
             int placementMethod = input.askForPlacementMethod();
             if (placementMethod == 1) {
-                for (Ship ship : ((player == player1)? shipsListPlayer1 : shipsListPlayer2)) {
+                for (Ship ship : ((player == player1)? player1.getShipList() : player2.getShipList())) {
                     int[] coordinates;
                     int x;
                     int y;
@@ -53,15 +54,15 @@ public class Game {
                         x = coordinates[0];
                         y = coordinates[1];
                         placement = board.manualPlacement(ship,x, y, input.getDirection());
-                        display.displayBoard(boardSize, board, "place");
+                        display.displayBoard(boardSize, board, "place", player);
                     } while (!placement);
 
                 }
             } else if (placementMethod == 2) {
-                for (Ship ship : ((player == player1)? shipsListPlayer1 : shipsListPlayer2)) {
+                for (Ship ship : ((player == player1)? player1.getShipList() : player2.getShipList())) {
                     board.randomPlacement(ship, boardSize);
                 }
-                display.displayBoard(boardSize, board, "place");
+                display.displayBoard(boardSize, board, "place", player);
             }
             player = (player == player1)? player2 : player1; // switch player
             board = (player == player2)? boardPlayer2 : boardPlayer1; // switch player
@@ -71,29 +72,34 @@ public class Game {
         do {
             board = (player == player1)? boardPlayer2 : boardPlayer1; // switch player
             display.displayPlayerTurn(player.getPlayerName());
-            display.displayBoard(boardSize, board, "shoot");
+            display.displayBoard(boardSize, board, "shoot", player);
             int [] coordinates = input.getValidCoordinates(boardSize, "shoot", ShipType.CARRIER);
             int x = coordinates[0];
             int y = coordinates[1];
             if (board.ocean[y][x].squareStatus.GetCharacter() == 'S'){
               square = board.ocean[y][x];
                 board.ocean[y][x].squareStatus = SquareStatus.HIT;
-                for (Ship ship: (player == player1)? shipsListPlayer1 : shipsListPlayer2) {
-                    if (ship.getSquareList().contains(square)){
-                        for (int i=0; i<ship.getSquareList().size(); i++){
-                            if (ship.getSquareList().get(i) ==  square) {
-                                ship.getSquareList().get(i).squareStatus = SquareStatus.HIT;
-                                ship.checkAndSetSunk(board);
-                            }
+                for (Ship ship: (player == player1)? player1.getShipList() : player2.getShipList()) {
+//                for (Ship ship: player.getShipList()) {
+//                    System.out.println("For loop started line 84 Game");
+                    for (int i=0; i<ship.getSquareList().size(); i++) {
+//                        System.out.println("For loop started line 86 Game");
+                        System.out.println("ship: "+ship.getShipType()+" x: "+ ship.getSquareList().get(i).getX()+"  y: "+
+                                ship.getSquareList().get(i).getY());
+                        System.out.println("X: "+x+"  Y: "+y);
+                        if (ship.getSquareList().get(i).getX()==x && ship.getSquareList().get(i).getY()==y) {
+                            System.out.println("ship list contains square! :)");
+                            ship.getSquareList().get(i).squareStatus = SquareStatus.HIT;
+                            ship.checkAndSetSunk(board);
                         }
                     }
                 }
             } else {
                 board.ocean[y][x].squareStatus = SquareStatus.MISSED;
             }
-            display.displayBoard(boardSize, board, "shoot");
+            display.displayBoard(boardSize, board, "shoot", player);
             player = (player == player1)? player2 : player1; // switch player
-        } while (player.isAlive((player == player1)? shipsListPlayer1 : shipsListPlayer2));
+        } while (player.isAlive((player == player1)? player1.getShipList() : player2.getShipList()));
 
 
     }
