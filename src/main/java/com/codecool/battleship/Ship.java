@@ -5,11 +5,15 @@ import java.util.List;
 public class Ship {
 
     private List<Square> squareList;
-    private Ship shipType;
+    private ShipType shipType;
 
 
     public Ship(List<Square> squareList) {
         this.squareList = squareList;
+    }
+
+    public Ship(ShipType shipType) {
+        this.shipType = shipType;
     }
 
 
@@ -18,11 +22,11 @@ public class Ship {
     }
 
 
-    public Ship getShipType() {
+    public ShipType getShipType() {
         return shipType;
     }
 
-    public void setShipType(Ship shipType) {
+    public void setShipType(ShipType shipType) {
         this.shipType = shipType;
     }
 
