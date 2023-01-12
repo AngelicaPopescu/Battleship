@@ -8,14 +8,10 @@ public class BoardFactory extends Board {
 
     //The BoardFactory class has a @randomPlacement() method that handles random ship placement on board
     public void randomPlacement(Ship ship, int oceanSize) {
-
         ShipPlacement shipPlacement;
-//        int count=0;
-
         do {
             shipPlacement = new ShipPlacement(oceanSize);
         } while (!isPlacementOK(ship.getShipType(), shipPlacement));
-
         putShipOnBoard(ship, oceanSize, shipPlacement);
     }
 
@@ -27,10 +23,10 @@ public class BoardFactory extends Board {
                         this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].squareStatus =
                                 SquareStatus.SHIP;
                         ship.getSquareList().add(ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i]);
-                        System.out.println("added to list: x: "+
-                                ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].getX()+
-                                "  y: "+ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].getY()+
-                                " Status: "+ ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].graphicalSquareStatus());
+//                        System.out.println("added to list: x: "+
+//                                ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].getX()+
+//                                "  y: "+ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].getY()+
+//                                " Status: "+ ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].graphicalSquareStatus());
 
                         //N on top
                         if (shipPlacement.shipPosition.y>0) {
@@ -142,7 +138,6 @@ public class BoardFactory extends Board {
         }
     }
 
-    //The BoardFactory class has a @manualPlacement() method that handles manual ship placement on board
     public boolean manualPlacement(Ship ship, int x, int y, Direction direction) {
         ShipPlacement shipPlacement;
         shipPlacement = new ShipPlacement(x, y, direction);

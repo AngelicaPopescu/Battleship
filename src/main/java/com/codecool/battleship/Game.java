@@ -25,8 +25,6 @@ public class Game {
         int boardSize = input.askForBoardSize();
         boardPlayer1.setOcean(boardSize);
         boardPlayer2.setOcean(boardSize);
-//        List<Ship> shipsListPlayer1 = new ArrayList<>();
-//        List<Ship> shipsListPlayer2 = new ArrayList<>();
         ShipType[] shipTypes = ShipType.values();
 
         for (ShipType shipType : shipTypes) {
@@ -77,7 +75,6 @@ public class Game {
             if (board.ocean[y][x].squareStatus.GetCharacter() == 'S') {
                 square = board.ocean[y][x];
                 board.ocean[y][x].squareStatus = SquareStatus.HIT;
-
 
                 for (Ship ship : (player == player1) ? player2.getShipList() : player1.getShipList()) {
                     for (int i = 0; i < ship.getSquareList().size(); i++) {

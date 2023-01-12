@@ -19,17 +19,11 @@ public class Player {
         this.playerName = playerName;
         this.playerBoard = playerBoard;
         this.shipList = new ArrayList<>();
-//        this.playerShips = playerShips;
     }
 
     public String getPlayerName() {
         return this.playerName;
     }
-
-    public Board getPlayerBoard() {
-        return this.playerBoard;
-    }
-
 
 
     public boolean isAlive(List<Ship> shipList) {

@@ -19,11 +19,9 @@ public class Ship {
         squareList = new ArrayList<>();
     }
 
-
     public List<Square> getSquareList() {
         return squareList;
     }
-
 
     public ShipType getShipType() {
         return shipType;
@@ -33,16 +31,6 @@ public class Ship {
         this.shipType = shipType;
     }
 
-//    public boolean isShipPosition(Square square){
-//        if(squareList != null){
-//            for (Square s: squareList){
-//                if (s.getY() == square.getY() && s.getX() == square.getX()) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
 
         public boolean isSunk(){
         int count =0;
