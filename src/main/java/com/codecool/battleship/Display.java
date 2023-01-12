@@ -58,4 +58,15 @@ public class Display{
     }
 
 
+    public void hitMessage() {
+        System.out.println("You hit!");
+    }
+
+    public void missedMessage() {
+        System.out.println("You missed!");
+    }
+
+    public void sunkMessage() {
+        System.out.println("You sunk a boat!");
+    }
 }

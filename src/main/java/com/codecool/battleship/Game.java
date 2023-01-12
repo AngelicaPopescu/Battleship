@@ -5,6 +5,7 @@ import com.codecool.battleship.placement.Direction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Game {
     public Display display = new Display();
@@ -13,7 +14,7 @@ public class Game {
     public Ship ship;
 
 
-    public void play() {
+    public void play() throws InterruptedException {
         BoardFactory boardPlayer1 = new BoardFactory();
         String namePlayer1 = input.getNameForPlayer();
         Player player1 = new Player(namePlayer1, boardPlayer1);
@@ -83,16 +84,22 @@ public class Game {
                         for (int i=0; i<ship.getSquareList().size(); i++){
                             if (ship.getSquareList().get(i) ==  square) {
                                 ship.getSquareList().get(i).squareStatus = SquareStatus.HIT;
+                                display.hitMessage();
                                 ship.checkAndSetSunk(board);
+                                display.displayBoard(boardSize, board, "shoot", player.getPlayerName());
+                                TimeUnit.SECONDS.sleep(2);
                             }
                         }
                     }
                 }
             } else {
                 board.ocean[y][x].squareStatus = SquareStatus.MISSED;
+                display.displayBoard(boardSize, board, "shoot", player.getPlayerName());
+                display.missedMessage();
+                TimeUnit.SECONDS.sleep(2);
             }
-            display.displayBoard(boardSize, board, "shoot", player.getPlayerName());
             player = (player == player1)? player2 : player1; // switch player
+
         } while (player.isAlive((player == player1)? shipsListPlayer1 : shipsListPlayer2));
 
 

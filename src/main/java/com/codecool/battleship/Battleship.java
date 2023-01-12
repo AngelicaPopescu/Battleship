@@ -2,7 +2,7 @@ package com.codecool.battleship;
 
 
 public class Battleship {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         while (true) {
             Game game = new Game();
             game.display.displayWelcomeMessage();
