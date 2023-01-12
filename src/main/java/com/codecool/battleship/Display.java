@@ -30,7 +30,7 @@ public class Display{
     }
 
     public void getBoatDirection() {
-        System.out.println("Choose direction (N, S, E, V): ");
+        System.out.println("Choose direction (N, S, E, W): ");
     }
 
     public void askForShootCoordinates() {

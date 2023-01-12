@@ -99,7 +99,8 @@ public class Input {
 //        while (true) {
             scanner = new Scanner(System.in);
             display.getBoatDirection();
-            String inputs = scanner.nextLine();
+//            String inputs = scanner.nextLine();
+            String input = "";
 //            try {
 //                for (Direction c : Direction.values()) {
 //                    if (c.name().equals(inputs)) {
@@ -112,11 +113,24 @@ public class Input {
 //                }
 //            } catch (InputMismatchException ignored){
 //            }
-            result = switch (Direction.valueOf(inputs.trim())) {
-                case NORTH -> Direction.NORTH;
-                case SOUTH -> Direction.SOUTH;
-                case EAST -> Direction.EAST;
-                case WEST -> Direction.WEST;
+            int count = 0;
+            do {
+                if (count>0) {System.out.println("Invalid entry!");}
+                count++;
+                String inputs = scanner.nextLine();
+                input = inputs.trim().toUpperCase();
+            } while (!input.equals("N") && !input.equals("NORTH") && !input.equals("S") &&
+                    !input.equals("SOUTH") && !input.equals("E") && !input.equals("EAST") &&
+                    !input.equals("W") && !input.equals("WEST"));
+
+
+//            result = switch (Direction.valueOf(inputs.trim())) {
+            result = switch (input) {
+                case "N", "NORTH" -> Direction.NORTH;
+                case "S", "SOUTH" -> Direction.SOUTH;
+                case "E", "EAST" -> Direction.EAST;
+                case "W", "WEST" -> Direction.WEST;
+                default -> throw new IllegalStateException("Unexpected value");
             };
 //        }
         return result;

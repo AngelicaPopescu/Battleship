@@ -17,6 +17,8 @@ public class Game {
         BoardFactory boardPlayer1 = new BoardFactory();
         String namePlayer1 = input.getNameForPlayer();
         Player player1 = new Player(namePlayer1, boardPlayer1);
+        List<Ship> shipsPlayer1;
+        //    List<Ship> shipsPlayer2 = (List<Ship>) new Ship();
         BoardFactory boardPlayer2 = new BoardFactory();
         Player player2 = new Player(input.getNameForPlayer(), boardPlayer2);
         Player player = player1;
