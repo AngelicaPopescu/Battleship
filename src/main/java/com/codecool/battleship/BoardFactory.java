@@ -14,13 +14,6 @@ public class BoardFactory extends Board {
 
         do {
             shipPlacement = new ShipPlacement(oceanSize);
-//            System.out.println("Ship direction: " + shipPlacement.shipDirection);
-//            System.out.println("Ship type: " + shipType.getLength());
-//            System.out.println("Ship position y: " + shipPlacement.shipPosition.y);
-//            System.out.println("Ship position x: " + shipPlacement.shipPosition.x);
-//            System.out.println("is plcement ok?: "+isPlacementOK(shipType, shipPlacement));
-//            count++;
-//            System.out.println("ship random placement: "+count);
         } while (!isPlacementOK(ship.getShipType(), shipPlacement));
 
         putShipOnBoard(ship, oceanSize, shipPlacement);

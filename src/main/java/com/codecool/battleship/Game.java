@@ -1,25 +1,22 @@
 package com.codecool.battleship;
 
-import com.codecool.battleship.placement.Direction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 
 public class Game {
     public Display display = new Display();
     public Input input = new Input();
     public Square square;
-    public Ship ship;
+
 
 
     public void play() throws InterruptedException {
         BoardFactory boardPlayer1 = new BoardFactory();
         String namePlayer1 = input.getNameForPlayer();
         Player player1 = new Player(namePlayer1, boardPlayer1);
-        List<Ship> shipsPlayer1;
-        //    List<Ship> shipsPlayer2 = (List<Ship>) new Ship();
         BoardFactory boardPlayer2 = new BoardFactory();
         Player player2 = new Player(input.getNameForPlayer(), boardPlayer2);
         Player player = player1;
@@ -79,25 +76,31 @@ public class Game {
             if (board.ocean[y][x].squareStatus.GetCharacter() == 'S'){
               square = board.ocean[y][x];
                 board.ocean[y][x].squareStatus = SquareStatus.HIT;
+
                 for (Ship ship: (player == player1)? shipsListPlayer1 : shipsListPlayer2) {
                     if (ship.getSquareList().contains(square)){
                         for (int i=0; i<ship.getSquareList().size(); i++){
                             if (ship.getSquareList().get(i) ==  square) {
                                 ship.getSquareList().get(i).squareStatus = SquareStatus.HIT;
-                                display.hitMessage();
                                 ship.checkAndSetSunk(board);
-                                display.displayBoard(boardSize, board, "shoot", player.getPlayerName());
-                                TimeUnit.SECONDS.sleep(2);
+
+
                             }
                         }
                     }
                 }
+                display.hitMessage();
+                display.displayBoard(boardSize, board, "shoot",
+                        (player == player1)? player2.getPlayerName() : player1.getPlayerName());
+                TimeUnit.SECONDS.sleep(2);
             } else {
                 board.ocean[y][x].squareStatus = SquareStatus.MISSED;
-                display.displayBoard(boardSize, board, "shoot", player.getPlayerName());
+                display.displayBoard(boardSize, board, "shoot",
+                        (player == player1)? player2.getPlayerName() : player1.getPlayerName());
                 display.missedMessage();
                 TimeUnit.SECONDS.sleep(2);
             }
+
             player = (player == player1)? player2 : player1; // switch player
 
         } while (player.isAlive((player == player1)? shipsListPlayer1 : shipsListPlayer2));
