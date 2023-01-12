@@ -105,30 +105,6 @@ public class Board {
         return !responseOverlapping;
     }
 
-    public void boardDisplay(){
-        String[][] toDisplay = new String[oceanSize][oceanSize];
-
-        for (int row = 0; row < oceanSize; row++) {
-            for (int col = 0; col < oceanSize; col++) {
-                toDisplay[row][col]=" "+ocean[row][col].squareStatus.GetCharacter();
-//                toDisplay[row][col]=" "+ocean[row][col].graphicalSquareStatus()+" x: "
-//                        +ocean[row][col].X+" y: "+ocean[row][col].Y;
-            }
-        }
-
-//        System.out.println("toDisplay: "+Arrays.deepToString(toDisplay));
-        System.out.println();
-        System.out.println(
-                Arrays.deepToString(toDisplay)
-                        .replace("[[", "")
-                        .replace("], ", "\n")
-                        .replace(",","")
-                        .replace("[","")
-                        .replace("]]",""));
-        System.out.println();
-    }
-
-
     public String boardToString(int boardSize){
         StringBuilder sb = new StringBuilder();
         sb.append("   ");

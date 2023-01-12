@@ -2,6 +2,7 @@ package com.codecool.battleship;
 
 import com.codecool.battleship.placement.Direction;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,48 +24,40 @@ public class Game {
         int boardSize = input.askForBoardSize();
         boardPlayer1.setOcean(boardSize);
         boardPlayer2.setOcean(boardSize);
+        List<Ship> shipsListPlayer1 = new ArrayList<>();
+        List<Ship> shipsListPlayer2 = new ArrayList<>();
+        ShipType[] shipTypes = ShipType.values();
+
+        for (ShipType shipType: shipTypes) {
+            Ship ship = new Ship(shipType);
+            shipsListPlayer1.add(ship);
+            shipsListPlayer2.add(ship);
+        }
         do {
             display.displayPlayerTurn(player.getPlayerName());
-            display.displayBoard(boardSize, board); // switch board for player
+            display.displayBoard(boardSize, board);
             int placementMethod = input.askForPlacementMethod();
             if (placementMethod == 1) {
-                int[] coordinates = input.getValidCoordinates(boardSize, "place", ShipType.CARRIER);
-                int x = coordinates[0];
-                int y = coordinates[1];
-                board.manualPlacement(ShipType.CARRIER,x, y, input.getDirection());
-                display.displayBoard(boardSize, board);
-//                coordinates = input.getValidCoordinates(boardSize, "place");
-//                x = coordinates[0];
-//                y = coordinates[1];
-//                board.manualPlacement(ShipType.DESTROYER,x, y, input.getDirection());
-//                display.displayBoard(boardSize, board);
-//                coordinates = input.getValidCoordinates(boardSize, "place");
-//                x = coordinates[0];
-//                y = coordinates[1];
-//                board.manualPlacement(ShipType.SUBMARINE,x, y, input.getDirection());
-//                display.displayBoard(boardSize, board);
-//                coordinates = input.getValidCoordinates(boardSize, "place");
-//                x = coordinates[0];
-//                y = coordinates[1];
-//                board.manualPlacement(ShipType.BATTLESHIP,x, y, input.getDirection());
-//                display.displayBoard(boardSize, board);
-//                coordinates = input.getValidCoordinates(boardSize, "place");
-//                x = coordinates[0];
-//                y = coordinates[1];
-//                board.manualPlacement(ShipType.CRUISER,x, y,  input.getDirection());
-//                display.displayBoard(boardSize, board);
+                for (ShipType shipType: shipTypes) {
+                    int[] coordinates;
+                    int x;
+                    int y;
+                    boolean placement;
+                    do {
+                        coordinates = input.getValidCoordinates(boardSize, "place", shipType);
+                        x = coordinates[0];
+                        y = coordinates[1];
+                        placement = board.manualPlacement(shipType,x, y, input.getDirection());
+                        display.displayBoard(boardSize, board);
+                    } while (!placement);
 
+                }
             } else if (placementMethod == 2) {
-                board.randomPlacement(ShipType.CARRIER, boardSize);
-                board.randomPlacement(ShipType.DESTROYER, boardSize);
-                board.randomPlacement(ShipType.SUBMARINE, boardSize);
-                board.randomPlacement(ShipType.BATTLESHIP, boardSize);
-                board.randomPlacement(ShipType.CRUISER, boardSize);
+                for (ShipType shipType: shipTypes) {
+                    board.randomPlacement(shipType, boardSize);
+                }
                 display.displayBoard(boardSize, board);
-
             }
-
-
             player = (player == player1)? player2 : player1; // switch player
             board = (player == player2)? boardPlayer2 : boardPlayer1; // switch player
         } while (!player.isAlive());
