@@ -7,7 +7,7 @@ import com.codecool.battleship.placement.ShipPlacement;
 public class BoardFactory extends Board {
 
     //The BoardFactory class has a @randomPlacement() method that handles random ship placement on board
-    public void randomPlacement(ShipType shipType, int oceanSize) {
+    public void randomPlacement(Ship ship, int oceanSize) {
 
         ShipPlacement shipPlacement;
 //        int count=0;
@@ -21,18 +21,20 @@ public class BoardFactory extends Board {
 //            System.out.println("is plcement ok?: "+isPlacementOK(shipType, shipPlacement));
 //            count++;
 //            System.out.println("ship random placement: "+count);
-        } while (!isPlacementOK(shipType, shipPlacement));
+        } while (!isPlacementOK(ship.getShipType(), shipPlacement));
 
-        putShipOnBoard(shipType, oceanSize, shipPlacement);
+        putShipOnBoard(ship, oceanSize, shipPlacement);
     }
 
-    private void putShipOnBoard(ShipType shipType, int oceanSize, ShipPlacement shipPlacement) {
-        if (isPlacementOK(shipType, shipPlacement)) {
+    private void putShipOnBoard(Ship ship, int oceanSize, ShipPlacement shipPlacement) {
+        if (isPlacementOK(ship.getShipType(), shipPlacement)) {
             switch (shipPlacement.shipDirection) {
                 case EAST -> {
-                    for (int i = 0; i < shipType.getLength(); i++) {
+                    for (int i = 0; i < ship.getShipType().getLength(); i++) {
                         this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].squareStatus =
                                 SquareStatus.SHIP;
+                        ship.getSquareList().add(ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i]);
+
                         //N on top
                         if (shipPlacement.shipPosition.y>0) {
                             this.ocean[shipPlacement.shipPosition.y-1][shipPlacement.shipPosition.x+i].squareStatus =
@@ -50,15 +52,16 @@ public class BoardFactory extends Board {
                                 SquareStatus.NEARBY;
                     }
                     //N at right
-                    if ((shipPlacement.shipPosition.x+ shipType.getLength())<=(oceanSize -1)) {
-                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x+ shipType.getLength()].squareStatus =
-                                SquareStatus.NEARBY;
+                    if ((shipPlacement.shipPosition.x+ ship.getShipType().getLength())<=(oceanSize -1)) {
+                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x +
+                                ship.getShipType().getLength()].squareStatus = SquareStatus.NEARBY;
                     }
                 }
                 case WEST -> {
-                    for (int i = 0; i < shipType.getLength(); i++) {
+                    for (int i = 0; i < ship.getShipType().getLength(); i++) {
                         this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x - i].squareStatus =
                                 SquareStatus.SHIP;
+                        ship.getSquareList().add(ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x - i]);
                         //N on top
                         if (shipPlacement.shipPosition.y>0) {
                             this.ocean[shipPlacement.shipPosition.y-1][shipPlacement.shipPosition.x-i].squareStatus =
@@ -71,8 +74,9 @@ public class BoardFactory extends Board {
                         }
                     }
                     //N at left
-                    if ((shipPlacement.shipPosition.x- shipType.getLength())>=0) {
-                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x- shipType.getLength()].squareStatus =
+                    if ((shipPlacement.shipPosition.x- ship.getShipType().getLength())>=0) {
+                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x -
+                                ship.getShipType().getLength()].squareStatus =
                                 SquareStatus.NEARBY;
                     }
                     //N at right
@@ -82,9 +86,10 @@ public class BoardFactory extends Board {
                     }
                 }
                 case NORTH -> {
-                    for (int i = 0; i < shipType.getLength(); i++) {
+                    for (int i = 0; i < ship.getShipType().getLength(); i++) {
                         this.ocean[shipPlacement.shipPosition.y - i][shipPlacement.shipPosition.x].squareStatus =
                                 SquareStatus.SHIP;
+                        ship.getSquareList().add(ocean[shipPlacement.shipPosition.y - i][shipPlacement.shipPosition.x]);
                         //N at left
                         if (shipPlacement.shipPosition.x>0) {
                             this.ocean[shipPlacement.shipPosition.y-i][shipPlacement.shipPosition.x-1].squareStatus =
@@ -97,8 +102,9 @@ public class BoardFactory extends Board {
                         }
                     }
                     //N on top
-                    if (shipPlacement.shipPosition.y- shipType.getLength()>=0) {
-                        this.ocean[shipPlacement.shipPosition.y- shipType.getLength()][shipPlacement.shipPosition.x].squareStatus =
+                    if (shipPlacement.shipPosition.y- ship.getShipType().getLength()>=0) {
+                        this.ocean[shipPlacement.shipPosition.y-
+                                ship.getShipType().getLength()][shipPlacement.shipPosition.x].squareStatus =
                                 SquareStatus.NEARBY;
                     }
                     //N under
@@ -108,9 +114,10 @@ public class BoardFactory extends Board {
                     }
                 }
                 case SOUTH -> {
-                    for (int i = 0; i < shipType.getLength(); i++) {
+                    for (int i = 0; i < ship.getShipType().getLength(); i++) {
                         this.ocean[shipPlacement.shipPosition.y + i][shipPlacement.shipPosition.x].squareStatus =
                                 SquareStatus.SHIP;
+                        ship.getSquareList().add(ocean[shipPlacement.shipPosition.y + i][shipPlacement.shipPosition.x]);
                         //N at left
                         if (shipPlacement.shipPosition.x>0) {
                             this.ocean[shipPlacement.shipPosition.y+i][shipPlacement.shipPosition.x-1].squareStatus =
@@ -128,8 +135,9 @@ public class BoardFactory extends Board {
                                 SquareStatus.NEARBY;
                     }
                     //N under
-                    if ((shipPlacement.shipPosition.y+ shipType.getLength())<=(oceanSize -1)) {
-                        this.ocean[shipPlacement.shipPosition.y+ shipType.getLength()][shipPlacement.shipPosition.x].squareStatus =
+                    if ((shipPlacement.shipPosition.y+ ship.getShipType().getLength())<=(oceanSize -1)) {
+                        this.ocean[shipPlacement.shipPosition.y+
+                                ship.getShipType().getLength()][shipPlacement.shipPosition.x].squareStatus =
                                 SquareStatus.NEARBY;
                     }
                 }
@@ -138,18 +146,130 @@ public class BoardFactory extends Board {
     }
 
 
+//
+//    private void putShipOnBoard(ShipType shipType, int oceanSize, ShipPlacement shipPlacement) {
+//        if (isPlacementOK(shipType, shipPlacement)) {
+//            switch (shipPlacement.shipDirection) {
+//                case EAST -> {
+//                    for (int i = 0; i < shipType.getLength(); i++) {
+//                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].squareStatus =
+//                                SquareStatus.SHIP;
+//                        //N on top
+//                        if (shipPlacement.shipPosition.y>0) {
+//                            this.ocean[shipPlacement.shipPosition.y-1][shipPlacement.shipPosition.x+i].squareStatus =
+//                                    SquareStatus.NEARBY;
+//                        }
+//                        //N under
+//                        if (shipPlacement.shipPosition.y<(oceanSize -1)) {
+//                            this.ocean[shipPlacement.shipPosition.y+1][shipPlacement.shipPosition.x+i].squareStatus =
+//                                    SquareStatus.NEARBY;
+//                        }
+//                    }
+//                    //N at left
+//                    if (shipPlacement.shipPosition.x>0) {
+//                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x-1].squareStatus =
+//                                SquareStatus.NEARBY;
+//                    }
+//                    //N at right
+//                    if ((shipPlacement.shipPosition.x+ shipType.getLength())<=(oceanSize -1)) {
+//                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x+ shipType.getLength()].squareStatus =
+//                                SquareStatus.NEARBY;
+//                    }
+//                }
+//                case WEST -> {
+//                    for (int i = 0; i < shipType.getLength(); i++) {
+//                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x - i].squareStatus =
+//                                SquareStatus.SHIP;
+//                        //N on top
+//                        if (shipPlacement.shipPosition.y>0) {
+//                            this.ocean[shipPlacement.shipPosition.y-1][shipPlacement.shipPosition.x-i].squareStatus =
+//                                    SquareStatus.NEARBY;
+//                        }
+//                        //N under
+//                        if (shipPlacement.shipPosition.y<(oceanSize -1)) {
+//                            this.ocean[shipPlacement.shipPosition.y+1][shipPlacement.shipPosition.x-i].squareStatus =
+//                                    SquareStatus.NEARBY;
+//                        }
+//                    }
+//                    //N at left
+//                    if ((shipPlacement.shipPosition.x- shipType.getLength())>=0) {
+//                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x- shipType.getLength()].squareStatus =
+//                                SquareStatus.NEARBY;
+//                    }
+//                    //N at right
+//                    if (shipPlacement.shipPosition.x<(oceanSize -1)) {
+//                        this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x+1].squareStatus =
+//                                SquareStatus.NEARBY;
+//                    }
+//                }
+//                case NORTH -> {
+//                    for (int i = 0; i < shipType.getLength(); i++) {
+//                        this.ocean[shipPlacement.shipPosition.y - i][shipPlacement.shipPosition.x].squareStatus =
+//                                SquareStatus.SHIP;
+//                        //N at left
+//                        if (shipPlacement.shipPosition.x>0) {
+//                            this.ocean[shipPlacement.shipPosition.y-i][shipPlacement.shipPosition.x-1].squareStatus =
+//                                    SquareStatus.NEARBY;
+//                        }
+//                        //N at right
+//                        if (shipPlacement.shipPosition.x<(oceanSize -1)) {
+//                            this.ocean[shipPlacement.shipPosition.y-i][shipPlacement.shipPosition.x+1].squareStatus =
+//                                    SquareStatus.NEARBY;
+//                        }
+//                    }
+//                    //N on top
+//                    if (shipPlacement.shipPosition.y- shipType.getLength()>=0) {
+//                        this.ocean[shipPlacement.shipPosition.y- shipType.getLength()][shipPlacement.shipPosition.x].squareStatus =
+//                                SquareStatus.NEARBY;
+//                    }
+//                    //N under
+//                    if (shipPlacement.shipPosition.y<(oceanSize -1)) {
+//                        this.ocean[shipPlacement.shipPosition.y+1][shipPlacement.shipPosition.x].squareStatus =
+//                                SquareStatus.NEARBY;
+//                    }
+//                }
+//                case SOUTH -> {
+//                    for (int i = 0; i < shipType.getLength(); i++) {
+//                        this.ocean[shipPlacement.shipPosition.y + i][shipPlacement.shipPosition.x].squareStatus =
+//                                SquareStatus.SHIP;
+//                        //N at left
+//                        if (shipPlacement.shipPosition.x>0) {
+//                            this.ocean[shipPlacement.shipPosition.y+i][shipPlacement.shipPosition.x-1].squareStatus =
+//                                    SquareStatus.NEARBY;
+//                        }
+//                        //N at right
+//                        if (shipPlacement.shipPosition.x<(oceanSize -1)) {
+//                            this.ocean[shipPlacement.shipPosition.y+i][shipPlacement.shipPosition.x+1].squareStatus =
+//                                    SquareStatus.NEARBY;
+//                        }
+//                    }
+//                    //N on top
+//                    if (shipPlacement.shipPosition.y>0) {
+//                        this.ocean[shipPlacement.shipPosition.y-1][shipPlacement.shipPosition.x].squareStatus =
+//                                SquareStatus.NEARBY;
+//                    }
+//                    //N under
+//                    if ((shipPlacement.shipPosition.y+ shipType.getLength())<=(oceanSize -1)) {
+//                        this.ocean[shipPlacement.shipPosition.y+ shipType.getLength()][shipPlacement.shipPosition.x].squareStatus =
+//                                SquareStatus.NEARBY;
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+
     //The BoardFactory class has a @manualPlacement() method that handles manual ship placement on board
-    public boolean manualPlacement(ShipType shipType, int x, int y, Direction direction) {
+    public boolean manualPlacement(Ship ship, int x, int y, Direction direction) {
         ShipPlacement shipPlacement;
         shipPlacement = new ShipPlacement(x, y, direction);
 
-        if (!isPlacementOK(shipType, shipPlacement)) {
+        if (!isPlacementOK(ship.getShipType(), shipPlacement)) {
             System.out.println("Ship outside of board or overlapping");
             return false;
         } else {
-            putShipOnBoard(shipType, oceanSize, shipPlacement);
+            putShipOnBoard(ship, oceanSize, shipPlacement);
             return true;
         }
     }
-
 }

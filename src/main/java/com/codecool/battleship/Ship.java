@@ -1,10 +1,11 @@
 package com.codecool.battleship;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ship {
 
-    private List<Square> squareList;
+    private final List<Square> squareList;
     private ShipType shipType;
 
 
@@ -14,6 +15,7 @@ public class Ship {
 
     public Ship(ShipType shipType) {
         this.shipType = shipType;
+        squareList = new ArrayList<>();
     }
 
 
