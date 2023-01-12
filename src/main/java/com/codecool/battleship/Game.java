@@ -35,7 +35,7 @@ public class Game {
         }
         do {
             display.displayPlayerTurn(player.getPlayerName());
-            display.displayBoard(boardSize, board);
+            display.displayBoard(boardSize, board, "place");
             int placementMethod = input.askForPlacementMethod();
             if (placementMethod == 1) {
                 for (ShipType shipType: shipTypes) {
@@ -48,7 +48,7 @@ public class Game {
                         x = coordinates[0];
                         y = coordinates[1];
                         placement = board.manualPlacement(shipType,x, y, input.getDirection());
-                        display.displayBoard(boardSize, board);
+                        display.displayBoard(boardSize, board, "place");
                     } while (!placement);
 
                 }
@@ -56,10 +56,20 @@ public class Game {
                 for (ShipType shipType: shipTypes) {
                     board.randomPlacement(shipType, boardSize);
                 }
-                display.displayBoard(boardSize, board);
+                display.displayBoard(boardSize, board, "place");
             }
             player = (player == player1)? player2 : player1; // switch player
             board = (player == player2)? boardPlayer2 : boardPlayer1; // switch player
-        } while (!player.isAlive());
+        } while (shipsListPlayer2.size() == 5);
+
+
+        do {
+
+
+
+            player = (player == player1)? player2 : player1; // switch player
+            board = (player == player2)? boardPlayer2 : boardPlayer1; // switch player
+        } while (player.isAlive());
+
     }
 }

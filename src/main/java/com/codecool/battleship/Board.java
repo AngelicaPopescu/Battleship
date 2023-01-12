@@ -3,6 +3,7 @@ package com.codecool.battleship;
 import com.codecool.battleship.placement.ShipPlacement;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Board {
 
@@ -105,7 +106,7 @@ public class Board {
         return !responseOverlapping;
     }
 
-    public String boardToString(int boardSize){
+    public String boardToString(int boardSize, String action){
         StringBuilder sb = new StringBuilder();
         sb.append("   ");
         for (int i = 0; i < boardSize; i++) {
@@ -115,7 +116,11 @@ public class Board {
         for (int y = 0; y < boardSize; y++) {
             sb.append(String.format("%3s", y + 1));;
             for (int x = 0; x < ocean[0].length; x++) {
-                sb.append("  ").append(ocean[y][x].squareStatus.GetCharacter());
+                if (Objects.equals(action, "place")) {
+                    sb.append("  ").append(ocean[y][x].squareStatus.GetCharacter());
+                } else {
+                    sb.append("  ").append(".");
+                }
             }
             sb.append("\n");
         }

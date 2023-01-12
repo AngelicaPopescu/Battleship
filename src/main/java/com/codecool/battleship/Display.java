@@ -49,8 +49,8 @@ public class Display{
         System.out.println("Choose the board size: ");
     }
 
-    public void displayBoard(int boardSize, BoardFactory board) {
-        System.out.println(board.boardToString(boardSize));
+    public void displayBoard(int boardSize, BoardFactory board, String action) {
+        System.out.println(board.boardToString(boardSize, action));
     }
 
     public void askForPlacement() {
