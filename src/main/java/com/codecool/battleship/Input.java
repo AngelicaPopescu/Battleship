@@ -96,23 +96,9 @@ public class Input {
 
     public Direction getDirection() {
         Direction result;
-//        while (true) {
             scanner = new Scanner(System.in);
             display.getBoatDirection();
-//            String inputs = scanner.nextLine();
             String input = "";
-//            try {
-//                for (Direction c : Direction.values()) {
-//                    if (c.name().equals(inputs)) {
-//                        result = c;
-//                        break;
-//                    }
-////                    } else {
-////                        display.displayInvalidChoiceMessage();
-////                    }
-//                }
-//            } catch (InputMismatchException ignored){
-//            }
             int count = 0;
             do {
                 if (count>0) {System.out.println("Invalid entry!");}
@@ -122,9 +108,6 @@ public class Input {
             } while (!input.equals("N") && !input.equals("NORTH") && !input.equals("S") &&
                     !input.equals("SOUTH") && !input.equals("E") && !input.equals("EAST") &&
                     !input.equals("W") && !input.equals("WEST"));
-
-
-//            result = switch (Direction.valueOf(inputs.trim())) {
             result = switch (input) {
                 case "N", "NORTH" -> Direction.NORTH;
                 case "S", "SOUTH" -> Direction.SOUTH;
@@ -132,7 +115,6 @@ public class Input {
                 case "W", "WEST" -> Direction.WEST;
                 default -> throw new IllegalStateException("Unexpected value");
             };
-//        }
         return result;
     }
 
@@ -165,8 +147,9 @@ public class Input {
         while (true) {
             scanner = new Scanner(System.in);
             display.askForPlacement();
-            placementMethod = scanner.nextInt();
+
             try {
+                placementMethod = scanner.nextInt();
                 if (checkForValidAnswer(placementMethod, validAnswers)) {
                     break;
                 } else {

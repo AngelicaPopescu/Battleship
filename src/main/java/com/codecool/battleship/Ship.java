@@ -7,6 +7,7 @@ public class Ship {
 
     private final List<Square> squareList;
     private ShipType shipType;
+    private Display display = new Display();
 
 
     public Ship(List<Square> squareList) {
@@ -77,14 +78,11 @@ public class Ship {
     public void checkAndSetSunk(BoardFactory board) {
             int count = 0;
             for (Square s : squareList) {
-                System.out.println("Square status: "+s.squareStatus);
                 if (s.getSquareStatus() == SquareStatus.HIT) {
                     count ++;
                 }
             }
-            System.out.println("count: "+count);
             if (count == squareList.size()) {
-                System.out.println("Ship sunk "+getShipType());
                 for (Square s: squareList) {
                     s.setSquareStatus(SquareStatus.SUNK);
                     board.ocean[s.getY()][s.getX()].setSquareStatus(SquareStatus.SUNK);

@@ -69,4 +69,8 @@ public class Display{
     public void sunkMessage() {
         System.out.println("You sunk a boat!");
     }
+
+    public void displayWinningMessage(Player player) {
+        System.out.println("Congratulation " + player.getPlayerName() +" you won!");
+    }
 }
