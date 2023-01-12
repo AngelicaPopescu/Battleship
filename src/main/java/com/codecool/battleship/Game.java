@@ -40,7 +40,7 @@ public class Game {
         do {
             repeat += 1;
             display.displayPlayerTurn(player.getPlayerName());
-            display.displayBoard(boardSize, board, "place");
+            display.displayBoard(boardSize, board, "place", player.getPlayerName());
             int placementMethod = input.askForPlacementMethod();
             if (placementMethod == 1) {
                 for (Ship ship : ((player == player1)? shipsListPlayer1 : shipsListPlayer2)) {
@@ -53,7 +53,7 @@ public class Game {
                         x = coordinates[0];
                         y = coordinates[1];
                         placement = board.manualPlacement(ship,x, y, input.getDirection());
-                        display.displayBoard(boardSize, board, "place");
+                        display.displayBoard(boardSize, board, "place", player.getPlayerName());
                     } while (!placement);
 
                 }
@@ -61,7 +61,7 @@ public class Game {
                 for (Ship ship : ((player == player1)? shipsListPlayer1 : shipsListPlayer2)) {
                     board.randomPlacement(ship, boardSize);
                 }
-                display.displayBoard(boardSize, board, "place");
+                display.displayBoard(boardSize, board, "place", player.getPlayerName());
             }
             player = (player == player1)? player2 : player1; // switch player
             board = (player == player2)? boardPlayer2 : boardPlayer1; // switch player
@@ -71,7 +71,7 @@ public class Game {
         do {
             board = (player == player1)? boardPlayer2 : boardPlayer1; // switch player
             display.displayPlayerTurn(player.getPlayerName());
-            display.displayBoard(boardSize, board, "shoot");
+            display.displayBoard(boardSize, board, "shoot", (player == player1)? player2.getPlayerName() : player1.getPlayerName());
             int [] coordinates = input.getValidCoordinates(boardSize, "shoot", ShipType.CARRIER);
             int x = coordinates[0];
             int y = coordinates[1];
@@ -91,7 +91,7 @@ public class Game {
             } else {
                 board.ocean[y][x].squareStatus = SquareStatus.MISSED;
             }
-            display.displayBoard(boardSize, board, "shoot");
+            display.displayBoard(boardSize, board, "shoot", player.getPlayerName());
             player = (player == player1)? player2 : player1; // switch player
         } while (player.isAlive((player == player1)? shipsListPlayer1 : shipsListPlayer2));
 
