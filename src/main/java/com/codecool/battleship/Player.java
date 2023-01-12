@@ -24,12 +24,14 @@ public class Player {
 
 
 
-    public boolean isAlive() {
-//        if (playerShips != null) {
-////            for (Ship ship : playerShips) {
-//////                if (!Ship.isSunk()) return true;
-////            }
-//        }
-        return false;
+    public boolean isAlive(List<Ship> shipList) {
+        boolean result = false;
+      for (Ship ship : shipList) {
+          if(!ship.isSunk()){
+              result = true;
+          }
+       }
+      return result;
     }
+
 }

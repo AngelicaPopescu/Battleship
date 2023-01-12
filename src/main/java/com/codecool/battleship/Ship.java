@@ -43,17 +43,16 @@ public class Ship {
 //        return false;
 //    }
 
-    //    public boolean isSunk(){
-//
-//        if(squareList != null){
-//            for (Square s: squareList){
-//                if(s.getSquareStatus == SquareStatus.SHIP){
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
+        public boolean isSunk(){
+        int count =0;
+        for (Square s: squareList){
+            if(s.getSquareStatus() == SquareStatus.SUNK){
+                count++;
+            }
+        }
+        return count == squareList.size();
+    }
+
     public void setShot(Square square) {
         if (squareList != null) {
             for (Square s : squareList) {
@@ -75,13 +74,19 @@ public class Ship {
         return SquareStatus.MISSED;
     }
 
-    public void setSunk() {
-        if (squareList != null) {
+    public void checkAndSetSunk(BoardFactory board) {
+            int count = 0;
             for (Square s : squareList) {
                 if (s.getSquareStatus() == SquareStatus.HIT) {
-                    s.setSquareStatus(SquareStatus.SUNK);
+                    count ++;
                 }
             }
-        }
+            if (count == squareList.size()) {
+                for (Square s: squareList) {
+                    s.setSquareStatus(SquareStatus.SUNK);
+                    board.ocean[s.getX()][s.getY()].setSquareStatus(SquareStatus.SUNK);
+                }
+            }
     }
+
 }

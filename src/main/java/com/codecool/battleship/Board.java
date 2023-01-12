@@ -119,7 +119,12 @@ public class Board {
                 if (Objects.equals(action, "place")) {
                     sb.append("  ").append(ocean[y][x].squareStatus.GetCharacter());
                 } else {
-                    sb.append("  ").append(".");
+                    if (ocean[y][x].squareStatus.GetCharacter() == 'H' || ocean[y][x].squareStatus.GetCharacter() == 'M' ||
+                            ocean[y][x].squareStatus.GetCharacter() == 'X'){
+                        sb.append("  ").append(ocean[y][x].squareStatus.GetCharacter());
+                    } else {
+                        sb.append("  ").append(".");
+                    }
                 }
             }
             sb.append("\n");
