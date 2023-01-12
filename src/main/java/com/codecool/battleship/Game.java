@@ -32,7 +32,7 @@ public class Game {
                 int x = coordinates[0];
                 int y = coordinates[1];
                 board.manualPlacement(ShipType.CARRIER,x, y, input.getDirection());
-//                display.displayBoard(boardSize, board);
+                display.displayBoard(boardSize, board);
 //                coordinates = input.getValidCoordinates(boardSize, "place");
 //                x = coordinates[0];
 //                y = coordinates[1];
@@ -66,7 +66,7 @@ public class Game {
 
 
             player = (player == player1)? player2 : player1; // switch player
-            board = (player == player1)? boardPlayer2 : boardPlayer1; // switch player
+            board = (player == player2)? boardPlayer2 : boardPlayer1; // switch player
         } while (!player.isAlive());
     }
 }
