@@ -16,7 +16,7 @@ public enum SquareStatus {
             } else if (this == SquareStatus.SHIP) {
                     return 'S';
             }  else if (this == SquareStatus.NEARBY) {
-                return 'N';
+                return '.';
             } else if (this == SquareStatus.MISSED) {
                 return 'M';
             } else { //Sunk

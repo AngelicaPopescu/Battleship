@@ -23,11 +23,6 @@ public class BoardFactory extends Board {
                         this.ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].squareStatus =
                                 SquareStatus.SHIP;
                         ship.getSquareList().add(ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i]);
-//                        System.out.println("added to list: x: "+
-//                                ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].getX()+
-//                                "  y: "+ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].getY()+
-//                                " Status: "+ ocean[shipPlacement.shipPosition.y][shipPlacement.shipPosition.x + i].graphicalSquareStatus());
-
                         //N on top
                         if (shipPlacement.shipPosition.y>0) {
                             this.ocean[shipPlacement.shipPosition.y-1][shipPlacement.shipPosition.x+i].squareStatus =
