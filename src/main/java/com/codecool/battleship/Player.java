@@ -11,7 +11,7 @@ public class Player {
 
     private final List<Ship> shipList;
 
-    private Input input = new Input();
+    private final Input input = new Input();
     Set<String> usedCoordinates;
 
 
