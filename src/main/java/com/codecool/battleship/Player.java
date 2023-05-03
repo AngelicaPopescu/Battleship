@@ -25,7 +25,6 @@ public class Player {
         return this.playerName;
     }
 
-
     public boolean isAlive(List<Ship> shipList) {
         boolean result = false;
       for (Ship ship : shipList) {

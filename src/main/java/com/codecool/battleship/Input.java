@@ -49,14 +49,14 @@ public class Input {
             try {
                 if (userChoice.matches("[a-zA-Z]+")) {
                     name = userChoice;
-                    break;
+                    return name;
                 } else {
-                    display.displayIncorrectName();
+                    throw new InputMismatchException();
                 }
             } catch (InputMismatchException ignored) {
+                display.displayIncorrectName();
             }
         }
-        return name;
     }
 
     public int[] getValidCoordinates(int boardSize, String action, ShipType shipType) {
@@ -83,7 +83,7 @@ public class Input {
                         coordinates[1] = row;
                         break;
                     } else {
-                        display.displayInvalidChoiceMessage();
+                        throw new NumberFormatException();
                     }
                 }
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {

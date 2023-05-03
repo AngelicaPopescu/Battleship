@@ -2,18 +2,14 @@ package com.codecool.battleship;
 
 import com.codecool.battleship.placement.ShipPlacement;
 
-import java.util.Arrays;
+
 import java.util.Objects;
 
 public class Board {
 
-
-    //The Board class has a Square[][] ocean field. This contains the squares that the board consists of.
     protected Square[][] ocean;
-
     int oceanSize;
 
-    //    public void setOcean(Square[][] ocean) {
     public void setOcean(int oceanSize) {
         this.ocean = new Square[oceanSize][oceanSize];
         for (int row = 0; row < oceanSize; row++) {
@@ -28,12 +24,9 @@ public class Board {
         return ocean;
     }
 
-
-    //The Board class has an isPlacementOk() method that verifies if placement of ship is possible
     public boolean isPlacementOK(ShipType shipType, ShipPlacement shipPlacement) {
 
-        boolean responseMargins = false;//false = ship extends over margins
-        //check for margins of board
+        boolean responseMargins = false;
         switch (shipPlacement.shipDirection) {
             case EAST -> {
                 if ((shipPlacement.shipPosition.x + shipType.getLength()) < oceanSize) {
@@ -57,8 +50,7 @@ public class Board {
             }
         }
 
-
-        boolean responseOverlapping = false;//false = ships are ok, not overlapping
+        boolean responseOverlapping = false;
 
         if (!responseMargins) {
             return false;

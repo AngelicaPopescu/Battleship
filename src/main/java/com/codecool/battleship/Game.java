@@ -1,8 +1,6 @@
 package com.codecool.battleship;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -10,9 +8,6 @@ public class Game {
     public Display display = new Display();
     public Input input = new Input();
     public Square square;
-
-    public Ship ship;
-
 
     public void play() throws InterruptedException {
         BoardFactory boardPlayer1 = new BoardFactory();
@@ -25,7 +20,7 @@ public class Game {
         int boardSize = input.askForBoardSize();
         boardPlayer1.setOcean(boardSize);
         boardPlayer2.setOcean(boardSize);
-        ShipType[] shipTypes = ShipType.values();
+        ShipType[] shipTypes = {ShipType.DESTROYER, ShipType.SUBMARINE, ShipType.CRUISER, ShipType.BATTLESHIP, ShipType.CARRIER};
 
         for (ShipType shipType : shipTypes) {
             Ship shipPlayer1 = new Ship(shipType);
@@ -40,7 +35,7 @@ public class Game {
             display.displayBoard(boardSize, board, "place", player.getPlayerName());
             int placementMethod = input.askForPlacementMethod();
             if (placementMethod == 1) {
-                for (Ship ship : ((player == player1) ? player1.getShipList() : player2.getShipList())) {
+                for (Ship ship : player.getShipList()) {
                     int[] coordinates;
                     int x;
                     int y;
@@ -60,13 +55,13 @@ public class Game {
                 }
                 display.displayBoard(boardSize, board, "place", player.getPlayerName());
             }
-            player = (player == player1) ? player2 : player1; // switch player
-            board = (player == player2) ? boardPlayer2 : boardPlayer1; // switch player
+            player = (player == player1) ? player2 : player1;
+            board = (player == player2) ? boardPlayer2 : boardPlayer1;
         } while (!(repeat == 2));
 
 
         do {
-            board = (player == player1) ? boardPlayer2 : boardPlayer1; // switch player
+            board = (player == player1) ? boardPlayer2 : boardPlayer1;
             display.displayPlayerTurn(player.getPlayerName());
             display.displayBoard(boardSize, board, "shoot", (player == player1) ? player2.getPlayerName() : player1.getPlayerName());
             int[] coordinates = input.getValidCoordinates(boardSize, "shoot", ShipType.CARRIER);
@@ -95,7 +90,7 @@ public class Game {
                 display.missedMessage();
                 TimeUnit.SECONDS.sleep(2);
             }
-            player = (player == player1) ? player2 : player1; // switch player
+            player = (player == player1) ? player2 : player1;
         } while (player.isAlive((player == player1) ? player1.getShipList() : player2.getShipList()));
         if (!player.isAlive((player == player1) ? player2.getShipList() : player1.getShipList())){
             display.displayWinningMessage(player);
