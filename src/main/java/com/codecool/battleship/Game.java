@@ -41,7 +41,7 @@ public class Game {
                     int y;
                     boolean placement;
                     do {
-                        coordinates = input.getValidCoordinates(boardSize, "place", ship.getShipType());
+                        coordinates = input.getValidCoordinates(boardSize, "place", ship.getShipType(), player.usedCoordinates);
                         x = coordinates[0];
                         y = coordinates[1];
                         placement = board.manualPlacement(ship, x, y, input.getDirection());
@@ -64,7 +64,7 @@ public class Game {
             board = (player == player1) ? boardPlayer2 : boardPlayer1;
             display.displayPlayerTurn(player.getPlayerName());
             display.displayBoard(boardSize, board, "shoot", (player == player1) ? player2.getPlayerName() : player1.getPlayerName());
-            int[] coordinates = input.getValidCoordinates(boardSize, "shoot", ShipType.CARRIER);
+            int[] coordinates = input.getValidCoordinates(boardSize, "shoot", ShipType.CARRIER, player.usedCoordinates);
             int x = coordinates[0];
             int y = coordinates[1];
             if (board.ocean[y][x].squareStatus.GetCharacter() == 'S') {

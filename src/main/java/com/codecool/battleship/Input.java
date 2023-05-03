@@ -5,6 +5,7 @@ import com.codecool.battleship.placement.Direction;
 import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Input {
 
@@ -59,7 +60,7 @@ public class Input {
         }
     }
 
-    public int[] getValidCoordinates(int boardSize, String action, ShipType shipType) {
+    public int[] getValidCoordinates(int boardSize, String action, ShipType shipType, Set<String>usedCoordinates) {
         int[] coordinates = new int[2];
         int row;
         int col;
@@ -78,12 +79,16 @@ public class Input {
                 if (!Objects.equals(inputs, "")) {
                     col = inputs.substring(0, 1).toUpperCase().charAt(0) - 65;
                     row = Integer.parseInt(inputs.substring(1)) - 1;
-                    if (row >= 0 && boardSize - 1 >= row && col >= 0 && boardSize - 1 >= col) {
+                    String coordinateString = col + "," + row;
+                    if (usedCoordinates.contains(coordinateString)) {
+                        display.displayInvalidChoiceMessage();
+                    } else if (row >= 0 && boardSize - 1 >= row && col >= 0 && boardSize - 1 >= col) {
                         coordinates[0] = col;
                         coordinates[1] = row;
+                        usedCoordinates.add(coordinateString);
                         break;
                     } else {
-                        throw new NumberFormatException();
+                        display.displayInvalidChoiceMessage();
                     }
                 }
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {

@@ -1,7 +1,9 @@
 package com.codecool.battleship;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Player {
     private final String playerName;
@@ -10,6 +12,8 @@ public class Player {
     private final List<Ship> shipList;
 
     private Input input = new Input();
+    Set<String> usedCoordinates;
+
 
     public List<Ship> getShipList() {
         return shipList;
@@ -19,6 +23,7 @@ public class Player {
         this.playerName = playerName;
         this.playerBoard = playerBoard;
         this.shipList = new ArrayList<>();
+        this.usedCoordinates = new HashSet<>();
     }
 
     public String getPlayerName() {
